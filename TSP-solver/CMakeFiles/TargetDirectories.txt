@@ -1,0 +1,4 @@
+/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/CMakeFiles/rebuild_cache.dir
+/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/CMakeFiles/TSP-solver.dir
+/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/CMakeFiles/edit_cache.dir
+/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/CMakeFiles/TSP-solver_autogen.dir

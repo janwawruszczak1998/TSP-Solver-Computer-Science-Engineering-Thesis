@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/TSP-solver.dir/TSP-solver_autogen/mocs_compilation.cpp.o CMakeFiles/TSP-solver.dir/main.cpp.o CMakeFiles/TSP-solver.dir/mainwindow.cpp.o  -o TSP-solver  /usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.9.5 /usr/lib/x86_64-linux-gnu/libQt5Gui.so.5.9.5 /usr/lib/x86_64-linux-gnu/libQt5Core.so.5.9.5 

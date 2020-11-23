@@ -1,0 +1,86 @@
+{
+	"BUILD_DIR" : "/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/TSP-solver_autogen",
+	"CMAKE_BINARY_DIR" : "/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver",
+	"CMAKE_CURRENT_BINARY_DIR" : "/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver",
+	"CMAKE_EXECUTABLE" : "/usr/local/bin/cmake",
+	"CMAKE_SOURCE_DIR" : "/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver",
+	"HEADERS" : 
+	[
+		[
+			"/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/Graph.hpp",
+			"MU",
+			"EWIEGA46WW/moc_Graph.cpp"
+		],
+		[
+			"/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/mainwindow.h",
+			"MU",
+			"EWIEGA46WW/moc_mainwindow.cpp"
+		]
+	],
+	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
+	"INCLUDE_DIR" : "/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/TSP-solver_autogen/include",
+	"MOC_COMPILATION_FILE" : "/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/TSP-solver_autogen/mocs_compilation.cpp",
+	"MOC_DEFINITIONS" : [ "QT_CORE_LIB", "QT_GUI_LIB", "QT_NO_DEBUG", "QT_WIDGETS_LIB" ],
+	"MOC_DEPEND_FILTERS" : 
+	[
+		[
+			"Q_PLUGIN_METADATA",
+			"[\n][ \t]*Q_PLUGIN_METADATA[ \t]*\\([^\\)]*FILE[ \t]*\"([^\"]+)\""
+		]
+	],
+	"MOC_INCLUDES" : 
+	[
+		"/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver",
+		"/usr/include/x86_64-linux-gnu/qt5",
+		"/usr/include/x86_64-linux-gnu/qt5/QtWidgets",
+		"/usr/include/x86_64-linux-gnu/qt5/QtGui",
+		"/usr/include/x86_64-linux-gnu/qt5/QtCore",
+		"/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++",
+		"/usr/include",
+		"/usr/include/c++/7",
+		"/usr/include/x86_64-linux-gnu/c++/7",
+		"/usr/include/c++/7/backward",
+		"/usr/lib/gcc/x86_64-linux-gnu/7/include",
+		"/usr/local/include",
+		"/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed",
+		"/usr/include/x86_64-linux-gnu"
+	],
+	"MOC_MACRO_NAMES" : [ "Q_OBJECT", "Q_GADGET", "Q_NAMESPACE" ],
+	"MOC_OPTIONS" : [],
+	"MOC_PATH_PREFIX" : true,
+	"MOC_PREDEFS_CMD" : 
+	[
+		"/usr/bin/c++",
+		"-dM",
+		"-E",
+		"-c",
+		"/usr/local/share/cmake-3.16/Modules/CMakeCXXCompilerABI.cpp"
+	],
+	"MOC_PREDEFS_FILE" : "/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/TSP-solver_autogen/moc_predefs.h",
+	"MOC_RELAXED_MODE" : false,
+	"MOC_SKIP" : [],
+	"MULTI_CONFIG" : false,
+	"PARALLEL" : 2,
+	"PARSE_CACHE_FILE" : "/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/CMakeFiles/TSP-solver_autogen.dir/ParseCache.txt",
+	"QT_MOC_EXECUTABLE" : "/usr/lib/qt5/bin/moc",
+	"QT_UIC_EXECUTABLE" : "/usr/lib/qt5/bin/uic",
+	"QT_VERSION_MAJOR" : 5,
+	"SETTINGS_FILE" : "/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/CMakeFiles/TSP-solver_autogen.dir/AutogenUsed.txt",
+	"SOURCES" : 
+	[
+		[
+			"/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/main.cpp",
+			"MU"
+		],
+		[
+			"/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/mainwindow.cpp",
+			"MU"
+		]
+	],
+	"UIC_OPTIONS" : [],
+	"UIC_SEARCH_PATHS" : [],
+	"UIC_SKIP" : [],
+	"UIC_UI_FILES" : [],
+	"VERBOSITY" : 0
+}

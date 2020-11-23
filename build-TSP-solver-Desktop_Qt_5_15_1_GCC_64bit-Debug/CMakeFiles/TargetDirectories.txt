@@ -1,0 +1,5 @@
+/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/build-TSP-solver-Desktop_Qt_5_15_1_GCC_64bit-Debug/CMakeFiles/rebuild_cache.dir
+/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/build-TSP-solver-Desktop_Qt_5_15_1_GCC_64bit-Debug/CMakeFiles/edit_cache.dir
+/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/build-TSP-solver-Desktop_Qt_5_15_1_GCC_64bit-Debug/CMakeFiles/TSP-solver.dir
+/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/build-TSP-solver-Desktop_Qt_5_15_1_GCC_64bit-Debug/CMakeFiles/TSP-solver_autogen_timestamp_deps.dir
+/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/build-TSP-solver-Desktop_Qt_5_15_1_GCC_64bit-Debug/CMakeFiles/TSP-solver_autogen.dir

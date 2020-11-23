@@ -1,0 +1,20 @@
+# ninja log v5
+2463	2864	1606094290510040592	TSP-solver	b6ded939490eb2ce
+2	20	1606087446364678753	TSP-solver_autogen/timestamp	7c64a9a344fbbc24
+20	1595	1606087447940706077	CMakeFiles/TSP-solver.dir/TSP-solver_autogen/mocs_compilation.cpp.o	ac8afd148d94858c
+3	2463	1606094290110031900	CMakeFiles/TSP-solver.dir/mainwindow.cpp.o	de7bd88e6ecbecd7
+175	2921	1606087350571026257	CMakeFiles/TSP-solver.dir/main.cpp.o	7834877dfce66c57
+3	2495	1606094442033322188	CMakeFiles/TSP-solver.dir/mainwindow.cpp.o	de7bd88e6ecbecd7
+2496	2917	1606094442453331257	TSP-solver	b6ded939490eb2ce
+3	2489	1606094479070121354	CMakeFiles/TSP-solver.dir/mainwindow.cpp.o	de7bd88e6ecbecd7
+2489	2904	1606094479486130324	TSP-solver	b6ded939490eb2ce
+2	2477	1606094514462884108	CMakeFiles/TSP-solver.dir/mainwindow.cpp.o	de7bd88e6ecbecd7
+2478	2883	1606094514866892811	TSP-solver	b6ded939490eb2ce
+1	2498	1606094603404797278	CMakeFiles/TSP-solver.dir/mainwindow.cpp.o	de7bd88e6ecbecd7
+2498	2908	1606094603812806044	TSP-solver	b6ded939490eb2ce
+2	2486	1606094648705769928	CMakeFiles/TSP-solver.dir/mainwindow.cpp.o	de7bd88e6ecbecd7
+2486	2907	1606094649125778940	TSP-solver	b6ded939490eb2ce
+2	2501	1606094690070657126	CMakeFiles/TSP-solver.dir/mainwindow.cpp.o	de7bd88e6ecbecd7
+2501	2903	1606094690470665701	TSP-solver	b6ded939490eb2ce
+2	2500	1606094809349211025	CMakeFiles/TSP-solver.dir/mainwindow.cpp.o	de7bd88e6ecbecd7
+2500	2916	1606094809765219922	TSP-solver	b6ded939490eb2ce
