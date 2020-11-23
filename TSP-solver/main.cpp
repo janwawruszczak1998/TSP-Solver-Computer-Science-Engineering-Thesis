@@ -2,6 +2,8 @@
 #include "Graph.hpp"
 
 #include <QApplication>
+#include <QScreen>
+#include <iostream>
 
 tsp::Graph<double, std::vector> graph;
 

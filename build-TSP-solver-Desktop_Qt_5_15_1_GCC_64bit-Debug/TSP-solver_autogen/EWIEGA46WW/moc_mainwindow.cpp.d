@@ -2,6 +2,7 @@
   /home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/build-TSP-solver-Desktop_Qt_5_15_1_GCC_64bit-Debug/TSP-solver_autogen/moc_predefs.h \
   /home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/Graph.hpp \
   /home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/Point.hpp \
+  /home/jan/Qt/5.15.1/gcc_64/include/QtCore/QPoint \
   /home/jan/Qt/5.15.1/gcc_64/include/QtCore/qalgorithms.h \
   /home/jan/Qt/5.15.1/gcc_64/include/QtCore/qarraydata.h \
   /home/jan/Qt/5.15.1/gcc_64/include/QtCore/qatomic.h \
@@ -140,6 +141,7 @@
   /usr/include/c++/7/bits/shared_ptr.h \
   /usr/include/c++/7/bits/shared_ptr_atomic.h \
   /usr/include/c++/7/bits/shared_ptr_base.h \
+  /usr/include/c++/7/bits/specfun.h \
   /usr/include/c++/7/bits/std_abs.h \
   /usr/include/c++/7/bits/std_function.h \
   /usr/include/c++/7/bits/stl_algo.h \
@@ -173,6 +175,7 @@
   /usr/include/c++/7/bits/vector.tcc \
   /usr/include/c++/7/cctype \
   /usr/include/c++/7/clocale \
+  /usr/include/c++/7/cmath \
   /usr/include/c++/7/cstddef \
   /usr/include/c++/7/cstdint \
   /usr/include/c++/7/cstdlib \
@@ -208,6 +211,18 @@
   /usr/include/c++/7/streambuf \
   /usr/include/c++/7/string \
   /usr/include/c++/7/string_view \
+  /usr/include/c++/7/tr1/bessel_function.tcc \
+  /usr/include/c++/7/tr1/beta_function.tcc \
+  /usr/include/c++/7/tr1/ell_integral.tcc \
+  /usr/include/c++/7/tr1/exp_integral.tcc \
+  /usr/include/c++/7/tr1/gamma.tcc \
+  /usr/include/c++/7/tr1/hypergeometric.tcc \
+  /usr/include/c++/7/tr1/legendre_function.tcc \
+  /usr/include/c++/7/tr1/modified_bessel_func.tcc \
+  /usr/include/c++/7/tr1/poly_hermite.tcc \
+  /usr/include/c++/7/tr1/poly_laguerre.tcc \
+  /usr/include/c++/7/tr1/riemann_zeta.tcc \
+  /usr/include/c++/7/tr1/special_function_util.h \
   /usr/include/c++/7/tuple \
   /usr/include/c++/7/type_traits \
   /usr/include/c++/7/typeinfo \

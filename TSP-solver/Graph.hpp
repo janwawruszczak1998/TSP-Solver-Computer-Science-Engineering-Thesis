@@ -8,6 +8,7 @@
 #include <iostream>
 #include <algorithm>
 #include <math.h>
+#include <cmath>
 
 #include "Point.hpp"
 
@@ -127,7 +128,8 @@ namespace tsp {
         bool removal_done_correctly = false;
         Point<T> point_to_delete(x, y);
         for (const auto &vertex : vertices_localization) {
-            if (point_to_delete == vertex.second) {
+            if (std::abs(point_to_delete.get_x() - vertex.second.get_x()) < 15
+                && std::abs(point_to_delete.get_y() - vertex.second.get_y()) < 15) {
                 remove_vertex(vertex.first);
                 removal_done_correctly = true;
                 break;
@@ -144,21 +146,11 @@ namespace tsp {
     template<typename T, template<typename, typename> class Container>
     T Graph<T, Container>::get_distance(int i, int j) const {
 
-        if (i >= order_ or j >= order_) return 0;
+        if (i < 0 or j < 0 or i >= order_ or j >= order_) return 0;
 
-        auto from_index = graph_representation.begin();
-        while (i--) {
-            from_index++;
-        }
+        return graph_representation[i][j].second;
 
-        auto to_index = from_index->begin();
-        while(j--){
-            to_index++;
-        }
-
-        return to_index->second;
     }
-
 
 }
 

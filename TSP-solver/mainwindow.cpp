@@ -4,6 +4,10 @@
 #include <QMouseEvent>
 #include <QPixmap>
 #include <qpainter.h>
+#include <QScreen>
+#include <vector>
+#include <algorithm>
+#include <cmath>
 
 extern tsp::Graph<double, std::vector> graph;
 
@@ -27,6 +31,13 @@ MainWindow::MainWindow(QWidget *parent)
     connect(graph_buttons[0], SIGNAL(released()), this, SLOT(click_add_vertex()));
     connect(graph_buttons[1], SIGNAL(released()), this, SLOT(click_remove_vertex()));
     connect(graph_buttons[2], SIGNAL(released()), this, SLOT(click_clear_graph()));
+
+    // algorithms parameter checkboxes
+
+    // run solver button
+    QString run_button_name = "RunButton";
+    QPushButton* run_button = MainWindow::findChild<QPushButton*>(run_button_name);
+    connect(run_button, SIGNAL(released()), this, SLOT(run_algorithms()));
 }
 
 MainWindow::~MainWindow()
@@ -34,17 +45,68 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::run_algorithms(){
+    number_of_threads = ui->ThreadsSlider->value() + 1;
+    time_of_running = ui->TimeSlider->value() + 1;
+
+    //preprocessing
+    unsigned n = graph.get_order();
+    double **dp;
+    dp = new double *[1 << n];
+    for (unsigned i = 0; i < (1 << n); ++i) dp[i] = new double[n];
+
+    for (unsigned i = 0; i < (1 << n); ++i) {
+        for (unsigned j = 0; j < n; ++j) {
+            dp[i][j] = 1 << 30;    //wypełnienie tablicy tras nieskończonościami
+        }
+    }
+
+
+    for (unsigned i = 0; i < n; ++i) {
+        dp[(1 << i) |
+           1][i] = graph.get_distance(0,i); //na początku koszt jednokrawędziowej ścieżki Hamiltona z 0 do I to po prostu koszt krawędzi
+    }
+
+    //dynamic programming
+    for (unsigned bitMask = 0; bitMask < (1 << n); ++bitMask) {                        //dla każdej maski bitowej liczymy trasy
+        for (unsigned v = 0; v < n; ++v) {                                             //rozważamy trasy zakończone w wierzchołku V
+            if (!(bitMask & (1 << v))) {
+                continue;                                                          //jeżeli w ścieżce nie ma w ogóle wierzchołja V, to pomijamy
+            }
+            for (unsigned j = 0; j < n; ++j) {                                         //patrzymy, do którego wierzchołka J możemy dojść z V
+                if (!(bitMask & (1 << j))) {                                     //jeśli wierzchołka J nie ma w trasie
+                    dp[bitMask | (1 << j)][j]
+                        = std::min(dp[bitMask][v] + graph.get_distance(v,j), dp[bitMask |(1 << j)][j]);    //jeżeli koszt dojścia do V i przejścia do J jest mniejszy od aktualnie najlepszego osiągnięcia J, to zaktualizuj
+                }
+            }
+        }
+    }
+
+    //ustalenie resultu
+    unsigned result = 1e9;
+    for (unsigned v = 0; v < n; ++v) {
+        unsigned act = dp[(1 << n) - 1][v] +
+                  graph.get_distance(v,0); //koszt "powrotu" z wierzchołka v do wierzchołka 0
+        if (result > act) result = act;
+    }
+
+    //zwolnienie pamięci
+    for (unsigned i = 0; i < (1 << n); ++i) {
+        delete[] dp[i];
+    }
+    delete[] dp;
+
+    std::cout << "Najtańszy cykl Hamiltona wyznaczona DP: " << result << std::endl;
+}
 void MainWindow::click_add_vertex(){
-    QWidget* map_ptr = MainWindow::findChild<QWidget*>("MapOfPoland");
-    cursor().setPos(map_ptr->geometry().x() + map_ptr->geometry().width() / 2, map_ptr->geometry().y() + map_ptr->geometry().height() / 2);
-    adding_vertex_required = true;
+    addition_vertex_required = true;
+    removal_vertex_required = false;
 }
 
 void MainWindow::click_remove_vertex(){
     if(graph.get_order()){
-        QWidget* map_ptr = MainWindow::findChild<QWidget*>("MapOfPoland");
-        cursor().setPos(map_ptr->geometry().x() + map_ptr->geometry().width() / 2, map_ptr->geometry().y() + map_ptr->geometry().height() / 2);
-        removing_vertex_required = true;
+        removal_vertex_required = true;
+        addition_vertex_required = false;
     }
 }
 
@@ -58,39 +120,75 @@ void MainWindow::click_clear_graph(){
 }
 
 void MainWindow::mousePressEvent(QMouseEvent* event) {
+    //if cursor outside map
+    if(cursor().pos().x() < ui->MapOfPoland->geometry().x()
+    || cursor().pos().x() > ui->MapOfPoland->geometry().x() + ui->MapOfPoland->width()
+    || cursor().pos().y() < ui->MapOfPoland->geometry().y()
+    || cursor().pos().y() > ui->MapOfPoland->geometry().y() + ui->MapOfPoland->height()
+    ){return;}
+
     if(event->button() == Qt::LeftButton){
-        if(adding_vertex_required){
+        const int left_os_navigation_bar_size = this->height() - QGuiApplication::primaryScreen()->geometry().height();
+        const int bottom_os_navigation_bar_size = this->width() - QGuiApplication::primaryScreen()->geometry().width();
+        QPixmap pixmap = QPixmap(ui->MapOfPoland->pixmap()->copy());
+        QPoint point;
+        point.setX( ((cursor().pos().x() - ui->MapOfPoland->geometry().x() + bottom_os_navigation_bar_size) * (pixmap.width())) / ui->MapOfPoland->width() );
+        point.setY( ((cursor().pos().y() - ui->MapOfPoland->geometry().y() + left_os_navigation_bar_size) * (pixmap.height())) / ui->MapOfPoland->height() );
 
-            ui->MapOfPoland->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
-            QPixmap pixmap = QPixmap(ui->MapOfPoland->pixmap()->copy());
+        if(addition_vertex_required){
+
+            if(std::find_if(array_of_points.begin(), array_of_points.end(),
+                [&point](const QPoint& m_point)
+                {return m_point.x() == point.x() && m_point.y() == point.y();}) == array_of_points.end()
+            ){
+                array_of_points.push_back(point);
+            }
+
+            ui->MapOfPoland->setPixmap(QPixmap("../map_of_poland.png"));
+            pixmap = QPixmap(ui->MapOfPoland->pixmap()->copy());
             QPainter painter(&pixmap);
-            QPen pen(Qt::red, 20, Qt::DotLine, Qt::RoundCap, Qt::RoundJoin);
-            QPoint point;
-            std::cout << "cursor.x " << cursor().pos().x() << " pixmap.width " << pixmap.width() << " sz. ekranu " << this->width() << " pozycja mapki " << ui->MapOfPoland->geometry().x() << " szerokosc mapki "<< ui->MapOfPoland->width() << " wartosc " << (cursor().pos().x()- ui->MapOfPoland->geometry().x()) * ((pixmap.width()))<< " "<<(580 * 2061)/581<<" "<<ui->MapOfPoland->width()*1737;
-            point.setX( ((cursor().pos().x()- ui->MapOfPoland->geometry().x()) * (pixmap.width()))/581);
-            point.setY(0);
+            painter.setPen(QPen(Qt::red, 30, Qt::DotLine, Qt::RoundCap, Qt::RoundJoin));
 
-            painter.setPen(pen);
-            painter.drawPoint(point);
+            for(const auto& point_to_draw : array_of_points){
+                painter.drawPoint(point_to_draw);
+            }
 
             ui->MapOfPoland->setPixmap(pixmap);
-            ui->MapOfPoland->setScaledContents(true);
             painter.end();
 
             graph.add_vertex(
-                        cursor().pos().x(),
-                        cursor().pos().y()
+                        ((cursor().pos().x() - ui->MapOfPoland->geometry().x() + bottom_os_navigation_bar_size) * (pixmap.width())) / ui->MapOfPoland->width(),
+                        ((cursor().pos().y() - ui->MapOfPoland->geometry().y() + left_os_navigation_bar_size) * (pixmap.height())) / ui->MapOfPoland->height()
                         );
             graph.display_graph();
-            adding_vertex_required = false;
+            addition_vertex_required = false;
         }
-        else if(removing_vertex_required){
+        else if(removal_vertex_required){
+            const auto array_iterator = std::find_if(array_of_points.begin(), array_of_points.end(),
+                                    [&point](const QPoint& m_point)
+                                    {return std::abs(m_point.x() - point.x()) < 15 && std::abs(m_point.y() - point.y()) < 15;});
+            if(array_iterator != array_of_points.end()){
+                array_of_points.erase(array_iterator);
+            }
+
+            ui->MapOfPoland->setPixmap(QPixmap("../map_of_poland.png"));
+            pixmap = QPixmap(ui->MapOfPoland->pixmap()->copy());
+            QPainter painter(&pixmap);
+            painter.setPen(QPen(Qt::red, 30, Qt::DotLine, Qt::RoundCap, Qt::RoundJoin));
+
+            for(const auto& point_to_draw : array_of_points){
+                painter.drawPoint(point_to_draw);
+            }
+
+            ui->MapOfPoland->setPixmap(pixmap);
+            painter.end();
+
             graph.remove_vertex(
-                        std::move(cursor().pos().x()),
-                        std::move(cursor().pos().y())
+                        ((cursor().pos().x() - ui->MapOfPoland->geometry().x() + bottom_os_navigation_bar_size) * (pixmap.width())) / ui->MapOfPoland->width(),
+                        ((cursor().pos().y() - ui->MapOfPoland->geometry().y() + left_os_navigation_bar_size) * (pixmap.height())) / ui->MapOfPoland->height()
                         );
             graph.display_graph();
-            removing_vertex_required = false;
+            removal_vertex_required = false;
         }
 
     }
