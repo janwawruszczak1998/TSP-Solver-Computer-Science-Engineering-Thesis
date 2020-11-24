@@ -128,8 +128,8 @@ namespace tsp {
         bool removal_done_correctly = false;
         Point<T> point_to_delete(x, y);
         for (const auto &vertex : vertices_localization) {
-            if (std::abs(point_to_delete.get_x() - vertex.second.get_x()) < 15
-                && std::abs(point_to_delete.get_y() - vertex.second.get_y()) < 15) {
+            if (std::abs(point_to_delete.get_x() - vertex.second.get_x()) < 20
+                && std::abs(point_to_delete.get_y() - vertex.second.get_y()) < 20) {
                 remove_vertex(vertex.first);
                 removal_done_correctly = true;
                 break;

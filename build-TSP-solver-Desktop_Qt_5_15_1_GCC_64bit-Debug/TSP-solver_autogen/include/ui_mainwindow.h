@@ -13,14 +13,13 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
-#include <QtWidgets/QPlainTextEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStatusBar>
-#include <QtWidgets/QTextEdit>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -34,11 +33,11 @@ public:
     QVBoxLayout *verticalLayout;
     QLabel *TimeLabel;
     QSlider *TimeSlider;
-    QTextEdit *TimeText;
+    QLineEdit *TimeText;
     QSpacerItem *ThreadsAndTimeSpacer;
     QLabel *ThreadsLabel;
     QSlider *ThreadsSlider;
-    QTextEdit *ThreadsText;
+    QLineEdit *ThreadsText;
     QPushButton *RunButton;
     QWidget *layoutWidget1;
     QVBoxLayout *MapButtons;
@@ -53,11 +52,11 @@ public:
     QWidget *layoutWidget3;
     QVBoxLayout *verticalLayout_3;
     QLabel *CostLabel;
-    QTextEdit *CostText;
+    QLineEdit *CostText;
     QWidget *layoutWidget4;
     QVBoxLayout *verticalLayout_4;
     QLabel *RouteLabel;
-    QPlainTextEdit *RouteText;
+    QLineEdit *RouteText;
     QLabel *MapOfPoland;
     QMenuBar *menubar;
     QStatusBar *statusbar;
@@ -78,7 +77,7 @@ public:
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         layoutWidget = new QWidget(centralwidget);
         layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
-        layoutWidget->setGeometry(QRect(80, 290, 231, 252));
+        layoutWidget->setGeometry(QRect(80, 290, 231, 211));
         verticalLayout = new QVBoxLayout(layoutWidget);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
@@ -100,12 +99,9 @@ public:
 
         verticalLayout->addWidget(TimeSlider);
 
-        TimeText = new QTextEdit(layoutWidget);
+        TimeText = new QLineEdit(layoutWidget);
         TimeText->setObjectName(QString::fromUtf8("TimeText"));
-        sizePolicy1.setHeightForWidth(TimeText->sizePolicy().hasHeightForWidth());
-        TimeText->setSizePolicy(sizePolicy1);
-        TimeText->setFocusPolicy(Qt::StrongFocus);
-        TimeText->setReadOnly(true);
+        TimeText->setAlignment(Qt::AlignCenter);
 
         verticalLayout->addWidget(TimeText);
 
@@ -126,11 +122,9 @@ public:
 
         verticalLayout->addWidget(ThreadsSlider);
 
-        ThreadsText = new QTextEdit(layoutWidget);
+        ThreadsText = new QLineEdit(layoutWidget);
         ThreadsText->setObjectName(QString::fromUtf8("ThreadsText"));
-        sizePolicy1.setHeightForWidth(ThreadsText->sizePolicy().hasHeightForWidth());
-        ThreadsText->setSizePolicy(sizePolicy1);
-        ThreadsText->setReadOnly(true);
+        ThreadsText->setAlignment(Qt::AlignCenter);
 
         verticalLayout->addWidget(ThreadsText);
 
@@ -168,7 +162,7 @@ public:
 
         layoutWidget2 = new QWidget(centralwidget);
         layoutWidget2->setObjectName(QString::fromUtf8("layoutWidget2"));
-        layoutWidget2->setGeometry(QRect(80, 560, 208, 83));
+        layoutWidget2->setGeometry(QRect(80, 550, 208, 83));
         verticalLayout_2 = new QVBoxLayout(layoutWidget2);
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
         verticalLayout_2->setContentsMargins(0, 0, 0, 0);
@@ -198,9 +192,14 @@ public:
 
         verticalLayout_3->addWidget(CostLabel);
 
-        CostText = new QTextEdit(layoutWidget3);
+        CostText = new QLineEdit(layoutWidget3);
         CostText->setObjectName(QString::fromUtf8("CostText"));
-        CostText->setReadOnly(true);
+        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(CostText->sizePolicy().hasHeightForWidth());
+        CostText->setSizePolicy(sizePolicy2);
+        CostText->setAlignment(Qt::AlignCenter);
 
         verticalLayout_3->addWidget(CostText);
 
@@ -215,9 +214,10 @@ public:
 
         verticalLayout_4->addWidget(RouteLabel);
 
-        RouteText = new QPlainTextEdit(layoutWidget4);
+        RouteText = new QLineEdit(layoutWidget4);
         RouteText->setObjectName(QString::fromUtf8("RouteText"));
-        RouteText->setReadOnly(true);
+        sizePolicy2.setHeightForWidth(RouteText->sizePolicy().hasHeightForWidth());
+        RouteText->setSizePolicy(sizePolicy2);
 
         verticalLayout_4->addWidget(RouteText);
 
@@ -225,9 +225,6 @@ public:
         MapOfPoland->setObjectName(QString::fromUtf8("MapOfPoland"));
         MapOfPoland->setEnabled(true);
         MapOfPoland->setGeometry(QRect(390, 30, 581, 511));
-        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Expanding);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
         sizePolicy2.setHeightForWidth(MapOfPoland->sizePolicy().hasHeightForWidth());
         MapOfPoland->setSizePolicy(sizePolicy2);
         MapOfPoland->setCursor(QCursor(Qt::CrossCursor));

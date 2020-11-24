@@ -86,8 +86,11 @@ TSP-solver_autogen/timestamp: \
 	/home/jan/Qt/5.15.1/gcc_64/include/QtGui/qtransform.h \
 	/home/jan/Qt/5.15.1/gcc_64/include/QtGui/qwindowdefs.h \
 	/home/jan/Qt/5.15.1/gcc_64/include/QtWidgets/QMainWindow \
+	/home/jan/Qt/5.15.1/gcc_64/include/QtWidgets/QSlider \
+	/home/jan/Qt/5.15.1/gcc_64/include/QtWidgets/qabstractslider.h \
 	/home/jan/Qt/5.15.1/gcc_64/include/QtWidgets/qmainwindow.h \
 	/home/jan/Qt/5.15.1/gcc_64/include/QtWidgets/qsizepolicy.h \
+	/home/jan/Qt/5.15.1/gcc_64/include/QtWidgets/qslider.h \
 	/home/jan/Qt/5.15.1/gcc_64/include/QtWidgets/qtabwidget.h \
 	/home/jan/Qt/5.15.1/gcc_64/include/QtWidgets/qtwidgets-config.h \
 	/home/jan/Qt/5.15.1/gcc_64/include/QtWidgets/qtwidgetsglobal.h \

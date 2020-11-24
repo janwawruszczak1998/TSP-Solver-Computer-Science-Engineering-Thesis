@@ -88,8 +88,11 @@
  mdp:/home/jan/Qt/5.15.1/gcc_64/include/QtGui/qtransform.h
  mdp:/home/jan/Qt/5.15.1/gcc_64/include/QtGui/qwindowdefs.h
  mdp:/home/jan/Qt/5.15.1/gcc_64/include/QtWidgets/QMainWindow
+ mdp:/home/jan/Qt/5.15.1/gcc_64/include/QtWidgets/QSlider
+ mdp:/home/jan/Qt/5.15.1/gcc_64/include/QtWidgets/qabstractslider.h
  mdp:/home/jan/Qt/5.15.1/gcc_64/include/QtWidgets/qmainwindow.h
  mdp:/home/jan/Qt/5.15.1/gcc_64/include/QtWidgets/qsizepolicy.h
+ mdp:/home/jan/Qt/5.15.1/gcc_64/include/QtWidgets/qslider.h
  mdp:/home/jan/Qt/5.15.1/gcc_64/include/QtWidgets/qtabwidget.h
  mdp:/home/jan/Qt/5.15.1/gcc_64/include/QtWidgets/qtwidgets-config.h
  mdp:/home/jan/Qt/5.15.1/gcc_64/include/QtWidgets/qtwidgetsglobal.h

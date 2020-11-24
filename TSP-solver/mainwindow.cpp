@@ -8,6 +8,7 @@
 #include <vector>
 #include <algorithm>
 #include <cmath>
+#include <QSlider>
 
 extern tsp::Graph<double, std::vector> graph;
 
@@ -17,27 +18,40 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->TimeText->setText(QString::number(1) + " min");
+    ui->ThreadsText->setText(QString::number(1) + " wątek");
+    ui->CostText->setText("-----");
 
-    // graph manipulation buttons
-    std::vector<QPushButton*> graph_buttons(3);
+
+    // buttons
+    std::vector<QPushButton*> buttons(4);
     QString add_button_name = "AddVertexButton";
     QString remove_button_name = "RemoveVertexButton";
     QString clear_button_name = "ClearVerticlesButton";
+    QString run_button_name = "RunButton";
 
-    graph_buttons[0] = MainWindow::findChild<QPushButton*>(add_button_name);
-    graph_buttons[1] = MainWindow::findChild<QPushButton*>(remove_button_name);
-    graph_buttons[2] = MainWindow::findChild<QPushButton*>(clear_button_name);
+    buttons[0] = MainWindow::findChild<QPushButton*>(add_button_name);
+    buttons[1] = MainWindow::findChild<QPushButton*>(remove_button_name);
+    buttons[2] = MainWindow::findChild<QPushButton*>(clear_button_name);
+    buttons[3] = MainWindow::findChild<QPushButton*>(run_button_name);
 
-    connect(graph_buttons[0], SIGNAL(released()), this, SLOT(click_add_vertex()));
-    connect(graph_buttons[1], SIGNAL(released()), this, SLOT(click_remove_vertex()));
-    connect(graph_buttons[2], SIGNAL(released()), this, SLOT(click_clear_graph()));
+    connect(buttons[0], SIGNAL(released()), this, SLOT(click_add_vertex()));
+    connect(buttons[1], SIGNAL(released()), this, SLOT(click_remove_vertex()));
+    connect(buttons[2], SIGNAL(released()), this, SLOT(click_clear_graph()));
+    connect(buttons[3], SIGNAL(released()), this, SLOT(run_algorithms()));
 
     // algorithms parameter checkboxes
 
-    // run solver button
-    QString run_button_name = "RunButton";
-    QPushButton* run_button = MainWindow::findChild<QPushButton*>(run_button_name);
-    connect(run_button, SIGNAL(released()), this, SLOT(run_algorithms()));
+    // sliders setting parameters
+    QString time_slider_name = "TimeSlider";
+    QString threads_slider_name = "ThreadsSlider";
+
+    QSlider* time_slider = MainWindow::findChild<QSlider*>(time_slider_name);
+    QSlider* threads_slider = MainWindow::findChild<QSlider*>(threads_slider_name);
+
+    connect(time_slider, SIGNAL(valueChanged(int)), this, SLOT(set_time_of_running()));
+    connect(threads_slider, SIGNAL(valueChanged(int)), this, SLOT(set_number_of_threads()));
+
 }
 
 MainWindow::~MainWindow()
@@ -45,9 +59,27 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::run_algorithms(){
-    number_of_threads = ui->ThreadsSlider->value() + 1;
+void MainWindow::set_time_of_running(){
     time_of_running = ui->TimeSlider->value() + 1;
+    ui->TimeText->setText(QString::number(time_of_running) + " min");
+
+}
+
+void MainWindow::set_number_of_threads(){
+    number_of_threads = ui->ThreadsSlider->value() + 1;
+    if(number_of_threads == 1){
+        ui->ThreadsText->setText(QString::number(number_of_threads) + " wątek");
+    }
+    else if(number_of_threads > 1 && number_of_threads < 4){
+        ui->ThreadsText->setText(QString::number(number_of_threads) + " wątki");
+    }
+    else{
+        ui->ThreadsText->setText(QString::number(number_of_threads) + " wątków");
+
+    }
+}
+
+void MainWindow::run_algorithms(){
 
     //preprocessing
     unsigned n = graph.get_order();
@@ -97,6 +129,8 @@ void MainWindow::run_algorithms(){
     delete[] dp;
 
     std::cout << "Najtańszy cykl Hamiltona wyznaczona DP: " << result << std::endl;
+    time_of_travel = result;
+    ui->CostText->setText(QString::number(result) + " jednostek");
 }
 void MainWindow::click_add_vertex(){
     addition_vertex_required = true;
@@ -113,27 +147,32 @@ void MainWindow::click_remove_vertex(){
 void MainWindow::click_clear_graph(){
     QPixmap basic_map("../map_of_poland.png");
     ui->MapOfPoland->setPixmap(basic_map);
+    array_of_points.clear();
     while(graph.get_order()){
         graph.remove_vertex(0);
     }
     graph.display_graph();
+    ui->CostText->setText("-----");
 }
+
 
 void MainWindow::mousePressEvent(QMouseEvent* event) {
     //if cursor outside map
-    if(cursor().pos().x() < ui->MapOfPoland->geometry().x()
-    || cursor().pos().x() > ui->MapOfPoland->geometry().x() + ui->MapOfPoland->width()
-    || cursor().pos().y() < ui->MapOfPoland->geometry().y()
-    || cursor().pos().y() > ui->MapOfPoland->geometry().y() + ui->MapOfPoland->height()
+    const int bottom_os_navigation_bar_size = this->height() - QGuiApplication::primaryScreen()->geometry().height();
+    const int left_os_navigation_bar_size = this->width() - QGuiApplication::primaryScreen()->geometry().width();
+
+    if(cursor().pos().x() < ui->MapOfPoland->geometry().x() - left_os_navigation_bar_size
+    || cursor().pos().x() > ui->MapOfPoland->geometry().x() + ui->MapOfPoland->width() - left_os_navigation_bar_size
+    || cursor().pos().y() < ui->MapOfPoland->geometry().y() - bottom_os_navigation_bar_size
+    || cursor().pos().y() > ui->MapOfPoland->geometry().y() + ui->MapOfPoland->height() - bottom_os_navigation_bar_size
     ){return;}
 
     if(event->button() == Qt::LeftButton){
-        const int left_os_navigation_bar_size = this->height() - QGuiApplication::primaryScreen()->geometry().height();
-        const int bottom_os_navigation_bar_size = this->width() - QGuiApplication::primaryScreen()->geometry().width();
+
         QPixmap pixmap = QPixmap(ui->MapOfPoland->pixmap()->copy());
         QPoint point;
-        point.setX( ((cursor().pos().x() - ui->MapOfPoland->geometry().x() + bottom_os_navigation_bar_size) * (pixmap.width())) / ui->MapOfPoland->width() );
-        point.setY( ((cursor().pos().y() - ui->MapOfPoland->geometry().y() + left_os_navigation_bar_size) * (pixmap.height())) / ui->MapOfPoland->height() );
+        point.setX( ((cursor().pos().x() - ui->MapOfPoland->geometry().x() + left_os_navigation_bar_size) * (pixmap.width())) / ui->MapOfPoland->width() );
+        point.setY( ((cursor().pos().y() - ui->MapOfPoland->geometry().y() + bottom_os_navigation_bar_size) * (pixmap.height())) / ui->MapOfPoland->height() );
 
         if(addition_vertex_required){
 
@@ -157,8 +196,8 @@ void MainWindow::mousePressEvent(QMouseEvent* event) {
             painter.end();
 
             graph.add_vertex(
-                        ((cursor().pos().x() - ui->MapOfPoland->geometry().x() + bottom_os_navigation_bar_size) * (pixmap.width())) / ui->MapOfPoland->width(),
-                        ((cursor().pos().y() - ui->MapOfPoland->geometry().y() + left_os_navigation_bar_size) * (pixmap.height())) / ui->MapOfPoland->height()
+                        ((cursor().pos().x() - ui->MapOfPoland->geometry().x() + left_os_navigation_bar_size) * (pixmap.width())) / ui->MapOfPoland->width(),
+                        ((cursor().pos().y() - ui->MapOfPoland->geometry().y() + bottom_os_navigation_bar_size) * (pixmap.height())) / ui->MapOfPoland->height()
                         );
             graph.display_graph();
             addition_vertex_required = false;
@@ -166,10 +205,11 @@ void MainWindow::mousePressEvent(QMouseEvent* event) {
         else if(removal_vertex_required){
             const auto array_iterator = std::find_if(array_of_points.begin(), array_of_points.end(),
                                     [&point](const QPoint& m_point)
-                                    {return std::abs(m_point.x() - point.x()) < 15 && std::abs(m_point.y() - point.y()) < 15;});
+                                    {return std::abs(m_point.x() - point.x()) < 20 && std::abs(m_point.y() - point.y()) < 20;});
             if(array_iterator != array_of_points.end()){
                 array_of_points.erase(array_iterator);
             }
+            else{return;}
 
             ui->MapOfPoland->setPixmap(QPixmap("../map_of_poland.png"));
             pixmap = QPixmap(ui->MapOfPoland->pixmap()->copy());
@@ -184,8 +224,8 @@ void MainWindow::mousePressEvent(QMouseEvent* event) {
             painter.end();
 
             graph.remove_vertex(
-                        ((cursor().pos().x() - ui->MapOfPoland->geometry().x() + bottom_os_navigation_bar_size) * (pixmap.width())) / ui->MapOfPoland->width(),
-                        ((cursor().pos().y() - ui->MapOfPoland->geometry().y() + left_os_navigation_bar_size) * (pixmap.height())) / ui->MapOfPoland->height()
+                        ((cursor().pos().x() - ui->MapOfPoland->geometry().x() + left_os_navigation_bar_size) * (pixmap.width())) / ui->MapOfPoland->width(),
+                        ((cursor().pos().y() - ui->MapOfPoland->geometry().y() + bottom_os_navigation_bar_size) * (pixmap.height())) / ui->MapOfPoland->height()
                         );
             graph.display_graph();
             removal_vertex_required = false;

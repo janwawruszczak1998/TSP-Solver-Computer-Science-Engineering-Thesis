@@ -32,7 +32,7 @@
       <x>80</x>
       <y>290</y>
       <width>231</width>
-      <height>252</height>
+      <height>211</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -63,18 +63,9 @@
       </widget>
      </item>
      <item>
-      <widget class="QTextEdit" name="TimeText">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="focusPolicy">
-        <enum>Qt::StrongFocus</enum>
-       </property>
-       <property name="readOnly">
-        <bool>true</bool>
+      <widget class="QLineEdit" name="TimeText">
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
@@ -112,15 +103,9 @@
       </widget>
      </item>
      <item>
-      <widget class="QTextEdit" name="ThreadsText">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="readOnly">
-        <bool>true</bool>
+      <widget class="QLineEdit" name="ThreadsText">
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
@@ -200,7 +185,7 @@
     <property name="geometry">
      <rect>
       <x>80</x>
-      <y>560</y>
+      <y>550</y>
       <width>208</width>
       <height>83</height>
      </rect>
@@ -247,9 +232,15 @@
       </widget>
      </item>
      <item>
-      <widget class="QTextEdit" name="CostText">
-       <property name="readOnly">
-        <bool>true</bool>
+      <widget class="QLineEdit" name="CostText">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
@@ -273,9 +264,12 @@
       </widget>
      </item>
      <item>
-      <widget class="QPlainTextEdit" name="RouteText">
-       <property name="readOnly">
-        <bool>true</bool>
+      <widget class="QLineEdit" name="RouteText">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
        </property>
       </widget>
      </item>
