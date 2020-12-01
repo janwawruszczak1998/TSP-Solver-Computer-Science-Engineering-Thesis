@@ -25,18 +25,25 @@ namespace tsp {
 
         void display_graph() const;
 
-        int get_order() const;
+        unsigned get_order() const;
+
+        Container<std::pair<int, Point<T>>>& get_vertices_localization();
 
         T get_distance(int, int) const;
 
     private:
-        int order_{0};
+        unsigned order_{0};
         Container<std::pair<int, Point<T>>> vertices_localization;
         Container<Container<std::pair<int, T>>> graph_representation;
     };
 
+    template<typename T, template<typename, typename = std::allocator<T>> class Container>
+    Container<std::pair<int, Point<T>>>& Graph<T, Container>::get_vertices_localization() {
+        return vertices_localization;
+    }
+
     template<typename T, template<typename, typename> class Container>
-    int Graph<T, Container>::get_order() const {
+    unsigned Graph<T, Container>::get_order() const {
         return order_;
     }
 

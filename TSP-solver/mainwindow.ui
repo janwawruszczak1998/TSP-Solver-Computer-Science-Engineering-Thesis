@@ -25,6 +25,11 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QMainWindow{
+	background-color: rgb(146, 183, 108);
+}</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
@@ -35,7 +40,7 @@
       <height>211</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
+    <layout class="QVBoxLayout" name="Sliders">
      <item>
       <widget class="QLabel" name="TimeLabel">
        <property name="sizePolicy">
@@ -44,8 +49,13 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel{
+	color: white;
+}</string>
+       </property>
        <property name="frameShape">
-        <enum>QFrame::Box</enum>
+        <enum>QFrame::WinPanel</enum>
        </property>
        <property name="text">
         <string>Czas oczekiwania:</string>
@@ -57,6 +67,9 @@
      </item>
      <item>
       <widget class="QSlider" name="TimeSlider">
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -64,6 +77,11 @@
      </item>
      <item>
       <widget class="QLineEdit" name="TimeText">
+       <property name="styleSheet">
+        <string notr="true">QLineEdit{
+	background-color: rgb(135, 243, 96);
+}</string>
+       </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
        </property>
@@ -84,8 +102,13 @@
      </item>
      <item>
       <widget class="QLabel" name="ThreadsLabel">
+       <property name="styleSheet">
+        <string notr="true">QLabel{
+	color: white;
+}</string>
+       </property>
        <property name="frameShape">
-        <enum>QFrame::Box</enum>
+        <enum>QFrame::WinPanel</enum>
        </property>
        <property name="text">
         <string>Liczba wątków</string>
@@ -97,6 +120,11 @@
      </item>
      <item>
       <widget class="QSlider" name="ThreadsSlider">
+       <property name="styleSheet">
+        <string notr="true">QSlider{
+	selection-color: green;
+}</string>
+       </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -104,6 +132,11 @@
      </item>
      <item>
       <widget class="QLineEdit" name="ThreadsText">
+       <property name="styleSheet">
+        <string notr="true">QLineEdit{
+	background-color: rgb(135, 243, 96);
+}</string>
+       </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
        </property>
@@ -120,6 +153,13 @@
       <height>51</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color: rgb(115, 210, 22);
+	color: white;
+	border: 2px solid white;
+}</string>
+    </property>
     <property name="text">
      <string>RUN!</string>
     </property>
@@ -133,7 +173,7 @@
       <height>231</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="MapButtons">
+    <layout class="QVBoxLayout" name="GraphButtons">
      <property name="spacing">
       <number>20</number>
      </property>
@@ -148,6 +188,13 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+	background-color: rgb(115, 210, 22);
+	color: white;
+	border: 2px solid white;
+}</string>
+       </property>
        <property name="text">
         <string>Dodaj punkt na mapie</string>
        </property>
@@ -161,6 +208,13 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+	background-color: rgb(115, 210, 22);
+	color: white;
+	border: 2px solid white;
+}</string>
+       </property>
        <property name="text">
         <string>Usuń punkt z mapy</string>
        </property>
@@ -173,6 +227,13 @@
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+	background-color: rgb(115, 210, 22);
+	color: white;
+	border: 2px solid white;
+}</string>
        </property>
        <property name="text">
         <string>Wyczyść mapę</string>
@@ -190,23 +251,29 @@
       <height>83</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout_2">
+    <layout class="QVBoxLayout" name="AlgoLayout">
      <item>
-      <widget class="QCheckBox" name="TabuCheckBox">
+      <widget class="QCheckBox" name="SACheckBox">
        <property name="text">
         <string>Przeszukiwanie z zakazami</string>
+       </property>
+       <property name="checked">
+        <bool>false</bool>
+       </property>
+       <property name="tristate">
+        <bool>false</bool>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QCheckBox" name="ACOCheckBox_2">
+      <widget class="QCheckBox" name="ACOCheckBox">
        <property name="text">
         <string>Kolonia mrówek</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QCheckBox" name="PSOCheckBox_3">
+      <widget class="QCheckBox" name="PSOCheckBox">
        <property name="text">
         <string>Rój cząstek</string>
        </property>
@@ -223,9 +290,17 @@
       <height>95</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout_3">
+    <layout class="QVBoxLayout" name="CostLayout">
      <item>
       <widget class="QLabel" name="CostLabel">
+       <property name="styleSheet">
+        <string notr="true">QLabel{
+	color: white;
+}</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::WinPanel</enum>
+       </property>
        <property name="text">
         <string>Szacowany czas przejazdu:</string>
        </property>
@@ -238,6 +313,11 @@
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLineEdit{
+	background-color: rgb(135, 243, 96);
+}</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -255,9 +335,17 @@
       <height>217</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout_4">
+    <layout class="QVBoxLayout" name="RouteLayout">
      <item>
       <widget class="QLabel" name="RouteLabel">
+       <property name="styleSheet">
+        <string notr="true">QLabel{
+	color: white;
+}</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::WinPanel</enum>
+       </property>
        <property name="text">
         <string>Sugerowana trasa:</string>
        </property>
@@ -270,6 +358,11 @@
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLineEdit{
+	background-color: rgb(135, 243, 96);
+}</string>
        </property>
       </widget>
      </item>

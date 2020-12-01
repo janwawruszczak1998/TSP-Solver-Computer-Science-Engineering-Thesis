@@ -211,3 +211,19 @@ Parsed CXX implicit link information from above output:
   implicit fwks: []
 
 
+Determining if the include file pthread.h exists passed with the following output:
+Change Dir: /home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/build-TSP-solver-Desktop_Qt_5_15_1_GCC_64bit-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/home/jan/Qt/Tools/Ninja/ninja cmTC_f2894 && [1/2] Building CXX object CMakeFiles/cmTC_f2894.dir/CheckIncludeFile.cxx.o
+[2/2] Linking CXX executable cmTC_f2894
+
+
+
+Determining if the function pthread_create exists in the pthread passed with the following output:
+Change Dir: /home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/build-TSP-solver-Desktop_Qt_5_15_1_GCC_64bit-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/home/jan/Qt/Tools/Ninja/ninja cmTC_374eb && [1/2] Building CXX object CMakeFiles/cmTC_374eb.dir/CheckFunctionExists.cxx.o
+[2/2] Linking CXX executable cmTC_374eb
+
+
+

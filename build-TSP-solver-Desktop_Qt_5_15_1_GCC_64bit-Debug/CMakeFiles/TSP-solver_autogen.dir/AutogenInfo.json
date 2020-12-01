@@ -78,7 +78,13 @@
 		"/home/jan/Qt/5.15.1/gcc_64/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake",
 		"/home/jan/Qt/5.15.1/gcc_64/lib/cmake/Qt5Widgets/Qt5WidgetsConfigExtras.cmake",
 		"/home/jan/Qt/5.15.1/gcc_64/lib/cmake/Qt5Widgets/Qt5WidgetsMacros.cmake",
-		"/home/jan/Qt/Tools/CMake/share/cmake-3.18/Modules/CMakeParseArguments.cmake"
+		"/home/jan/Qt/Tools/CMake/share/cmake-3.18/Modules/CMakeParseArguments.cmake",
+		"/home/jan/Qt/Tools/CMake/share/cmake-3.18/Modules/FindThreads.cmake",
+		"/home/jan/Qt/Tools/CMake/share/cmake-3.18/Modules/CheckLibraryExists.cmake",
+		"/home/jan/Qt/Tools/CMake/share/cmake-3.18/Modules/CheckIncludeFileCXX.cmake",
+		"/home/jan/Qt/Tools/CMake/share/cmake-3.18/Modules/CheckCXXSourceCompiles.cmake",
+		"/home/jan/Qt/Tools/CMake/share/cmake-3.18/Modules/FindPackageHandleStandardArgs.cmake",
+		"/home/jan/Qt/Tools/CMake/share/cmake-3.18/Modules/FindPackageMessage.cmake"
 	],
 	"CMAKE_SOURCE_DIR" : "/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver",
 	"DEP_FILE" : "/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/build-TSP-solver-Desktop_Qt_5_15_1_GCC_64bit-Debug/TSP-solver_autogen/deps",
@@ -91,9 +97,34 @@
 			"EWIEGA46WW/moc_Graph.cpp"
 		],
 		[
+			"/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/aco.h",
+			"MU",
+			"EWIEGA46WW/moc_aco.cpp"
+		],
+		[
+			"/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/dynamicprogrammingalgorithm.h",
+			"MU",
+			"EWIEGA46WW/moc_dynamicprogrammingalgorithm.cpp"
+		],
+		[
 			"/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/mainwindow.h",
 			"MU",
 			"EWIEGA46WW/moc_mainwindow.cpp"
+		],
+		[
+			"/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/pso.h",
+			"MU",
+			"EWIEGA46WW/moc_pso.cpp"
+		],
+		[
+			"/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/sa.h",
+			"MU",
+			"EWIEGA46WW/moc_sa.cpp"
+		],
+		[
+			"/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/strategy.h",
+			"MU",
+			"EWIEGA46WW/moc_strategy.cpp"
 		]
 	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
@@ -150,11 +181,31 @@
 	"SOURCES" : 
 	[
 		[
+			"/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/aco.cpp",
+			"MU"
+		],
+		[
+			"/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/dynamicprogrammingalgorithm.cpp",
+			"MU"
+		],
+		[
 			"/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/main.cpp",
 			"MU"
 		],
 		[
 			"/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/mainwindow.cpp",
+			"MU"
+		],
+		[
+			"/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/pso.cpp",
+			"MU"
+		],
+		[
+			"/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/sa.cpp",
+			"MU"
+		],
+		[
+			"/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/strategy.cpp",
 			"MU"
 		]
 	],

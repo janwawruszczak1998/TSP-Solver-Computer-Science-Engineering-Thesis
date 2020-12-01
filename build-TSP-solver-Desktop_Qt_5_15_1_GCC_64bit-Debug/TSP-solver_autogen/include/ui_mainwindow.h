@@ -30,7 +30,7 @@ class Ui_MainWindow
 public:
     QWidget *centralwidget;
     QWidget *layoutWidget;
-    QVBoxLayout *verticalLayout;
+    QVBoxLayout *Sliders;
     QLabel *TimeLabel;
     QSlider *TimeSlider;
     QLineEdit *TimeText;
@@ -40,21 +40,21 @@ public:
     QLineEdit *ThreadsText;
     QPushButton *RunButton;
     QWidget *layoutWidget1;
-    QVBoxLayout *MapButtons;
+    QVBoxLayout *GraphButtons;
     QPushButton *AddVertexButton;
     QPushButton *RemoveVertexButton;
     QPushButton *ClearVerticlesButton;
     QWidget *layoutWidget2;
-    QVBoxLayout *verticalLayout_2;
-    QCheckBox *TabuCheckBox;
-    QCheckBox *ACOCheckBox_2;
-    QCheckBox *PSOCheckBox_3;
+    QVBoxLayout *AlgoLayout;
+    QCheckBox *SACheckBox;
+    QCheckBox *ACOCheckBox;
+    QCheckBox *PSOCheckBox;
     QWidget *layoutWidget3;
-    QVBoxLayout *verticalLayout_3;
+    QVBoxLayout *CostLayout;
     QLabel *CostLabel;
     QLineEdit *CostText;
     QWidget *layoutWidget4;
-    QVBoxLayout *verticalLayout_4;
+    QVBoxLayout *RouteLayout;
     QLabel *RouteLabel;
     QLineEdit *RouteText;
     QLabel *MapOfPoland;
@@ -73,14 +73,17 @@ public:
         sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
         MainWindow->setSizePolicy(sizePolicy);
         MainWindow->setMouseTracking(false);
+        MainWindow->setStyleSheet(QString::fromUtf8("QMainWindow{\n"
+"	background-color: rgb(146, 183, 108);\n"
+"}"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         layoutWidget = new QWidget(centralwidget);
         layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
         layoutWidget->setGeometry(QRect(80, 290, 231, 211));
-        verticalLayout = new QVBoxLayout(layoutWidget);
-        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        verticalLayout->setContentsMargins(0, 0, 0, 0);
+        Sliders = new QVBoxLayout(layoutWidget);
+        Sliders->setObjectName(QString::fromUtf8("Sliders"));
+        Sliders->setContentsMargins(0, 0, 0, 0);
         TimeLabel = new QLabel(layoutWidget);
         TimeLabel->setObjectName(QString::fromUtf8("TimeLabel"));
         QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Preferred);
@@ -88,109 +91,151 @@ public:
         sizePolicy1.setVerticalStretch(0);
         sizePolicy1.setHeightForWidth(TimeLabel->sizePolicy().hasHeightForWidth());
         TimeLabel->setSizePolicy(sizePolicy1);
-        TimeLabel->setFrameShape(QFrame::Box);
+        TimeLabel->setStyleSheet(QString::fromUtf8("QLabel{\n"
+"	color: white;\n"
+"}"));
+        TimeLabel->setFrameShape(QFrame::WinPanel);
         TimeLabel->setAlignment(Qt::AlignCenter);
 
-        verticalLayout->addWidget(TimeLabel);
+        Sliders->addWidget(TimeLabel);
 
         TimeSlider = new QSlider(layoutWidget);
         TimeSlider->setObjectName(QString::fromUtf8("TimeSlider"));
+        TimeSlider->setStyleSheet(QString::fromUtf8(""));
         TimeSlider->setOrientation(Qt::Horizontal);
 
-        verticalLayout->addWidget(TimeSlider);
+        Sliders->addWidget(TimeSlider);
 
         TimeText = new QLineEdit(layoutWidget);
         TimeText->setObjectName(QString::fromUtf8("TimeText"));
+        TimeText->setStyleSheet(QString::fromUtf8("QLineEdit{\n"
+"	background-color: rgb(135, 243, 96);\n"
+"}"));
         TimeText->setAlignment(Qt::AlignCenter);
 
-        verticalLayout->addWidget(TimeText);
+        Sliders->addWidget(TimeText);
 
         ThreadsAndTimeSpacer = new QSpacerItem(20, 100, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-        verticalLayout->addItem(ThreadsAndTimeSpacer);
+        Sliders->addItem(ThreadsAndTimeSpacer);
 
         ThreadsLabel = new QLabel(layoutWidget);
         ThreadsLabel->setObjectName(QString::fromUtf8("ThreadsLabel"));
-        ThreadsLabel->setFrameShape(QFrame::Box);
+        ThreadsLabel->setStyleSheet(QString::fromUtf8("QLabel{\n"
+"	color: white;\n"
+"}"));
+        ThreadsLabel->setFrameShape(QFrame::WinPanel);
         ThreadsLabel->setAlignment(Qt::AlignCenter);
 
-        verticalLayout->addWidget(ThreadsLabel);
+        Sliders->addWidget(ThreadsLabel);
 
         ThreadsSlider = new QSlider(layoutWidget);
         ThreadsSlider->setObjectName(QString::fromUtf8("ThreadsSlider"));
+        ThreadsSlider->setStyleSheet(QString::fromUtf8("QSlider{\n"
+"	selection-color: green;\n"
+"}"));
         ThreadsSlider->setOrientation(Qt::Horizontal);
 
-        verticalLayout->addWidget(ThreadsSlider);
+        Sliders->addWidget(ThreadsSlider);
 
         ThreadsText = new QLineEdit(layoutWidget);
         ThreadsText->setObjectName(QString::fromUtf8("ThreadsText"));
+        ThreadsText->setStyleSheet(QString::fromUtf8("QLineEdit{\n"
+"	background-color: rgb(135, 243, 96);\n"
+"}"));
         ThreadsText->setAlignment(Qt::AlignCenter);
 
-        verticalLayout->addWidget(ThreadsText);
+        Sliders->addWidget(ThreadsText);
 
         RunButton = new QPushButton(centralwidget);
         RunButton->setObjectName(QString::fromUtf8("RunButton"));
         RunButton->setGeometry(QRect(540, 580, 301, 51));
+        RunButton->setStyleSheet(QString::fromUtf8("QPushButton{\n"
+"	background-color: rgb(115, 210, 22);\n"
+"	color: white;\n"
+"	border: 2px solid white;\n"
+"}"));
         layoutWidget1 = new QWidget(centralwidget);
         layoutWidget1->setObjectName(QString::fromUtf8("layoutWidget1"));
         layoutWidget1->setGeometry(QRect(80, 40, 161, 231));
-        MapButtons = new QVBoxLayout(layoutWidget1);
-        MapButtons->setSpacing(20);
-        MapButtons->setObjectName(QString::fromUtf8("MapButtons"));
-        MapButtons->setSizeConstraint(QLayout::SetNoConstraint);
-        MapButtons->setContentsMargins(0, 0, 0, 0);
+        GraphButtons = new QVBoxLayout(layoutWidget1);
+        GraphButtons->setSpacing(20);
+        GraphButtons->setObjectName(QString::fromUtf8("GraphButtons"));
+        GraphButtons->setSizeConstraint(QLayout::SetNoConstraint);
+        GraphButtons->setContentsMargins(0, 0, 0, 0);
         AddVertexButton = new QPushButton(layoutWidget1);
         AddVertexButton->setObjectName(QString::fromUtf8("AddVertexButton"));
         sizePolicy1.setHeightForWidth(AddVertexButton->sizePolicy().hasHeightForWidth());
         AddVertexButton->setSizePolicy(sizePolicy1);
+        AddVertexButton->setStyleSheet(QString::fromUtf8("QPushButton{\n"
+"	background-color: rgb(115, 210, 22);\n"
+"	color: white;\n"
+"	border: 2px solid white;\n"
+"}"));
 
-        MapButtons->addWidget(AddVertexButton);
+        GraphButtons->addWidget(AddVertexButton);
 
         RemoveVertexButton = new QPushButton(layoutWidget1);
         RemoveVertexButton->setObjectName(QString::fromUtf8("RemoveVertexButton"));
         sizePolicy1.setHeightForWidth(RemoveVertexButton->sizePolicy().hasHeightForWidth());
         RemoveVertexButton->setSizePolicy(sizePolicy1);
+        RemoveVertexButton->setStyleSheet(QString::fromUtf8("QPushButton{\n"
+"	background-color: rgb(115, 210, 22);\n"
+"	color: white;\n"
+"	border: 2px solid white;\n"
+"}"));
 
-        MapButtons->addWidget(RemoveVertexButton);
+        GraphButtons->addWidget(RemoveVertexButton);
 
         ClearVerticlesButton = new QPushButton(layoutWidget1);
         ClearVerticlesButton->setObjectName(QString::fromUtf8("ClearVerticlesButton"));
         sizePolicy1.setHeightForWidth(ClearVerticlesButton->sizePolicy().hasHeightForWidth());
         ClearVerticlesButton->setSizePolicy(sizePolicy1);
+        ClearVerticlesButton->setStyleSheet(QString::fromUtf8("QPushButton{\n"
+"	background-color: rgb(115, 210, 22);\n"
+"	color: white;\n"
+"	border: 2px solid white;\n"
+"}"));
 
-        MapButtons->addWidget(ClearVerticlesButton);
+        GraphButtons->addWidget(ClearVerticlesButton);
 
         layoutWidget2 = new QWidget(centralwidget);
         layoutWidget2->setObjectName(QString::fromUtf8("layoutWidget2"));
         layoutWidget2->setGeometry(QRect(80, 550, 208, 83));
-        verticalLayout_2 = new QVBoxLayout(layoutWidget2);
-        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
-        verticalLayout_2->setContentsMargins(0, 0, 0, 0);
-        TabuCheckBox = new QCheckBox(layoutWidget2);
-        TabuCheckBox->setObjectName(QString::fromUtf8("TabuCheckBox"));
+        AlgoLayout = new QVBoxLayout(layoutWidget2);
+        AlgoLayout->setObjectName(QString::fromUtf8("AlgoLayout"));
+        AlgoLayout->setContentsMargins(0, 0, 0, 0);
+        SACheckBox = new QCheckBox(layoutWidget2);
+        SACheckBox->setObjectName(QString::fromUtf8("SACheckBox"));
+        SACheckBox->setChecked(false);
+        SACheckBox->setTristate(false);
 
-        verticalLayout_2->addWidget(TabuCheckBox);
+        AlgoLayout->addWidget(SACheckBox);
 
-        ACOCheckBox_2 = new QCheckBox(layoutWidget2);
-        ACOCheckBox_2->setObjectName(QString::fromUtf8("ACOCheckBox_2"));
+        ACOCheckBox = new QCheckBox(layoutWidget2);
+        ACOCheckBox->setObjectName(QString::fromUtf8("ACOCheckBox"));
 
-        verticalLayout_2->addWidget(ACOCheckBox_2);
+        AlgoLayout->addWidget(ACOCheckBox);
 
-        PSOCheckBox_3 = new QCheckBox(layoutWidget2);
-        PSOCheckBox_3->setObjectName(QString::fromUtf8("PSOCheckBox_3"));
+        PSOCheckBox = new QCheckBox(layoutWidget2);
+        PSOCheckBox->setObjectName(QString::fromUtf8("PSOCheckBox"));
 
-        verticalLayout_2->addWidget(PSOCheckBox_3);
+        AlgoLayout->addWidget(PSOCheckBox);
 
         layoutWidget3 = new QWidget(centralwidget);
         layoutWidget3->setObjectName(QString::fromUtf8("layoutWidget3"));
         layoutWidget3->setGeometry(QRect(1040, 100, 258, 95));
-        verticalLayout_3 = new QVBoxLayout(layoutWidget3);
-        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
-        verticalLayout_3->setContentsMargins(0, 0, 0, 0);
+        CostLayout = new QVBoxLayout(layoutWidget3);
+        CostLayout->setObjectName(QString::fromUtf8("CostLayout"));
+        CostLayout->setContentsMargins(0, 0, 0, 0);
         CostLabel = new QLabel(layoutWidget3);
         CostLabel->setObjectName(QString::fromUtf8("CostLabel"));
+        CostLabel->setStyleSheet(QString::fromUtf8("QLabel{\n"
+"	color: white;\n"
+"}"));
+        CostLabel->setFrameShape(QFrame::WinPanel);
 
-        verticalLayout_3->addWidget(CostLabel);
+        CostLayout->addWidget(CostLabel);
 
         CostText = new QLineEdit(layoutWidget3);
         CostText->setObjectName(QString::fromUtf8("CostText"));
@@ -199,27 +244,37 @@ public:
         sizePolicy2.setVerticalStretch(0);
         sizePolicy2.setHeightForWidth(CostText->sizePolicy().hasHeightForWidth());
         CostText->setSizePolicy(sizePolicy2);
+        CostText->setStyleSheet(QString::fromUtf8("QLineEdit{\n"
+"	background-color: rgb(135, 243, 96);\n"
+"}"));
         CostText->setAlignment(Qt::AlignCenter);
 
-        verticalLayout_3->addWidget(CostText);
+        CostLayout->addWidget(CostText);
 
         layoutWidget4 = new QWidget(centralwidget);
         layoutWidget4->setObjectName(QString::fromUtf8("layoutWidget4"));
         layoutWidget4->setGeometry(QRect(1040, 240, 258, 217));
-        verticalLayout_4 = new QVBoxLayout(layoutWidget4);
-        verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
-        verticalLayout_4->setContentsMargins(0, 0, 0, 0);
+        RouteLayout = new QVBoxLayout(layoutWidget4);
+        RouteLayout->setObjectName(QString::fromUtf8("RouteLayout"));
+        RouteLayout->setContentsMargins(0, 0, 0, 0);
         RouteLabel = new QLabel(layoutWidget4);
         RouteLabel->setObjectName(QString::fromUtf8("RouteLabel"));
+        RouteLabel->setStyleSheet(QString::fromUtf8("QLabel{\n"
+"	color: white;\n"
+"}"));
+        RouteLabel->setFrameShape(QFrame::WinPanel);
 
-        verticalLayout_4->addWidget(RouteLabel);
+        RouteLayout->addWidget(RouteLabel);
 
         RouteText = new QLineEdit(layoutWidget4);
         RouteText->setObjectName(QString::fromUtf8("RouteText"));
         sizePolicy2.setHeightForWidth(RouteText->sizePolicy().hasHeightForWidth());
         RouteText->setSizePolicy(sizePolicy2);
+        RouteText->setStyleSheet(QString::fromUtf8("QLineEdit{\n"
+"	background-color: rgb(135, 243, 96);\n"
+"}"));
 
-        verticalLayout_4->addWidget(RouteText);
+        RouteLayout->addWidget(RouteText);
 
         MapOfPoland = new QLabel(centralwidget);
         MapOfPoland->setObjectName(QString::fromUtf8("MapOfPoland"));
@@ -255,9 +310,9 @@ public:
         AddVertexButton->setText(QCoreApplication::translate("MainWindow", "Dodaj punkt na mapie", nullptr));
         RemoveVertexButton->setText(QCoreApplication::translate("MainWindow", "Usu\305\204 punkt z mapy", nullptr));
         ClearVerticlesButton->setText(QCoreApplication::translate("MainWindow", "Wyczy\305\233\304\207 map\304\231", nullptr));
-        TabuCheckBox->setText(QCoreApplication::translate("MainWindow", "Przeszukiwanie z zakazami", nullptr));
-        ACOCheckBox_2->setText(QCoreApplication::translate("MainWindow", "Kolonia mr\303\263wek", nullptr));
-        PSOCheckBox_3->setText(QCoreApplication::translate("MainWindow", "R\303\263j cz\304\205stek", nullptr));
+        SACheckBox->setText(QCoreApplication::translate("MainWindow", "Przeszukiwanie z zakazami", nullptr));
+        ACOCheckBox->setText(QCoreApplication::translate("MainWindow", "Kolonia mr\303\263wek", nullptr));
+        PSOCheckBox->setText(QCoreApplication::translate("MainWindow", "R\303\263j cz\304\205stek", nullptr));
         CostLabel->setText(QCoreApplication::translate("MainWindow", "Szacowany czas przejazdu:", nullptr));
         RouteLabel->setText(QCoreApplication::translate("MainWindow", "Sugerowana trasa:", nullptr));
         MapOfPoland->setText(QString());

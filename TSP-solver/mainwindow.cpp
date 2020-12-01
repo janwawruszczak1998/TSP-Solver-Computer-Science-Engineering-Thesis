@@ -1,20 +1,26 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+#include "strategy.h"
+#include "aco.h"
+#include "sa.h"
+#include "pso.h"
+
 #include <QCursor>
 #include <QMouseEvent>
 #include <QPixmap>
 #include <qpainter.h>
 #include <QScreen>
-#include <vector>
-#include <algorithm>
-#include <cmath>
 #include <QSlider>
 
-extern tsp::Graph<double, std::vector> graph;
 
+#include <thread>
+#include <algorithm>
+#include <cmath>
+#include <vector>
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(tsp::Graph<double, std::vector>& graph_, QWidget *parent)
     : QMainWindow(parent)
+    , graph(graph_)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
@@ -70,7 +76,7 @@ void MainWindow::set_number_of_threads(){
     if(number_of_threads == 1){
         ui->ThreadsText->setText(QString::number(number_of_threads) + " wątek");
     }
-    else if(number_of_threads > 1 && number_of_threads < 4){
+    else if(number_of_threads > 1 && number_of_threads < 5){
         ui->ThreadsText->setText(QString::number(number_of_threads) + " wątki");
     }
     else{
@@ -80,58 +86,63 @@ void MainWindow::set_number_of_threads(){
 }
 
 void MainWindow::run_algorithms(){
+    if(strategy){
+        delete strategy;
+    }
 
-    //preprocessing
-    unsigned n = graph.get_order();
-    double **dp;
-    dp = new double *[1 << n];
-    for (unsigned i = 0; i < (1 << n); ++i) dp[i] = new double[n];
+    int num_of_choosen_algorithms{0};
+    if(MainWindow::findChild<QCheckBox*>("ACOCheckBox")->isChecked()){
+        num_of_choosen_algorithms++;
+    }
+    if(MainWindow::findChild<QCheckBox*>("PSOCheckBox")->isChecked()){
+        num_of_choosen_algorithms++;
+    }
+    if(MainWindow::findChild<QCheckBox*>("SACheckBox")->isChecked()){
+        num_of_choosen_algorithms++;
+    }
 
-    for (unsigned i = 0; i < (1 << n); ++i) {
-        for (unsigned j = 0; j < n; ++j) {
-            dp[i][j] = 1 << 30;    //wypełnienie tablicy tras nieskończonościami
+    int available_minutes{0};
+    if(num_of_choosen_algorithms){
+        available_minutes /= num_of_choosen_algorithms;
+    }
+
+
+    std::vector<std::unique_ptr<Strategy>> algorithms(number_of_threads);
+
+    if(MainWindow::findChild<QCheckBox*>("SACheckBox")->isChecked()){
+        for(unsigned i = 0; i < number_of_threads; ++i){
+            std::cout << "klikniete" << std::endl;
+            algorithms[i] = std::make_unique<SA>(graph, time_of_travel);
+        }
+        for(unsigned i = 0; i < number_of_threads; ++i){
+            algorithms[i]->get_algo_thread().join();
+        }
+    }
+
+    if(MainWindow::findChild<QCheckBox*>("ACOCheckBox")->isChecked()){
+        for(unsigned i = 0; i < number_of_threads; ++i){
+            std::cout << "klikniete" << std::endl;
+            algorithms[i] = std::make_unique<ACO>(graph, time_of_travel);
+        }
+        for(unsigned i = 0; i < number_of_threads; ++i){
+            algorithms[i]->get_algo_thread().join();
+        }
+    }
+
+    if(MainWindow::findChild<QCheckBox*>("PSOCheckBox")->isChecked()){
+        for(unsigned i = 0; i < number_of_threads; ++i){
+            std::cout << "klikniete" << std::endl;
+            algorithms[i] = std::make_unique<PSO>(graph, time_of_travel);
+        }
+        for(unsigned i = 0; i < number_of_threads; ++i){
+            algorithms[i]->get_algo_thread().join();
         }
     }
 
 
-    for (unsigned i = 0; i < n; ++i) {
-        dp[(1 << i) |
-           1][i] = graph.get_distance(0,i); //na początku koszt jednokrawędziowej ścieżki Hamiltona z 0 do I to po prostu koszt krawędzi
-    }
-
-    //dynamic programming
-    for (unsigned bitMask = 0; bitMask < (1 << n); ++bitMask) {                        //dla każdej maski bitowej liczymy trasy
-        for (unsigned v = 0; v < n; ++v) {                                             //rozważamy trasy zakończone w wierzchołku V
-            if (!(bitMask & (1 << v))) {
-                continue;                                                          //jeżeli w ścieżce nie ma w ogóle wierzchołja V, to pomijamy
-            }
-            for (unsigned j = 0; j < n; ++j) {                                         //patrzymy, do którego wierzchołka J możemy dojść z V
-                if (!(bitMask & (1 << j))) {                                     //jeśli wierzchołka J nie ma w trasie
-                    dp[bitMask | (1 << j)][j]
-                        = std::min(dp[bitMask][v] + graph.get_distance(v,j), dp[bitMask |(1 << j)][j]);    //jeżeli koszt dojścia do V i przejścia do J jest mniejszy od aktualnie najlepszego osiągnięcia J, to zaktualizuj
-                }
-            }
-        }
-    }
-
-    //ustalenie resultu
-    unsigned result = 1e9;
-    for (unsigned v = 0; v < n; ++v) {
-        unsigned act = dp[(1 << n) - 1][v] +
-                  graph.get_distance(v,0); //koszt "powrotu" z wierzchołka v do wierzchołka 0
-        if (result > act) result = act;
-    }
-
-    //zwolnienie pamięci
-    for (unsigned i = 0; i < (1 << n); ++i) {
-        delete[] dp[i];
-    }
-    delete[] dp;
-
-    std::cout << "Najtańszy cykl Hamiltona wyznaczona DP: " << result << std::endl;
-    time_of_travel = result;
-    ui->CostText->setText(QString::number(result) + " jednostek");
+    ui->CostText->setText(QString::number(time_of_travel) + " jednostek");
 }
+
 void MainWindow::click_add_vertex(){
     addition_vertex_required = true;
     removal_vertex_required = false;
@@ -143,6 +154,7 @@ void MainWindow::click_remove_vertex(){
         addition_vertex_required = false;
     }
 }
+void mousePressEvent(QMouseEvent* = nullptr);
 
 void MainWindow::click_clear_graph(){
     QPixmap basic_map("../map_of_poland.png");
@@ -154,7 +166,6 @@ void MainWindow::click_clear_graph(){
     graph.display_graph();
     ui->CostText->setText("-----");
 }
-
 
 void MainWindow::mousePressEvent(QMouseEvent* event) {
     //if cursor outside map
@@ -168,11 +179,13 @@ void MainWindow::mousePressEvent(QMouseEvent* event) {
     ){return;}
 
     if(event->button() == Qt::LeftButton){
-
         QPixmap pixmap = QPixmap(ui->MapOfPoland->pixmap()->copy());
+        auto x_value = ((cursor().pos().x() - ui->MapOfPoland->geometry().x() + left_os_navigation_bar_size) * (pixmap.width())) / ui->MapOfPoland->width();
+        auto y_value = ((cursor().pos().y() - ui->MapOfPoland->geometry().y() + bottom_os_navigation_bar_size) * (pixmap.height())) / ui->MapOfPoland->height();
+
         QPoint point;
-        point.setX( ((cursor().pos().x() - ui->MapOfPoland->geometry().x() + left_os_navigation_bar_size) * (pixmap.width())) / ui->MapOfPoland->width() );
-        point.setY( ((cursor().pos().y() - ui->MapOfPoland->geometry().y() + bottom_os_navigation_bar_size) * (pixmap.height())) / ui->MapOfPoland->height() );
+        point.setX(x_value);
+        point.setY(y_value);
 
         if(addition_vertex_required){
 
@@ -195,12 +208,19 @@ void MainWindow::mousePressEvent(QMouseEvent* event) {
             ui->MapOfPoland->setPixmap(pixmap);
             painter.end();
 
-            graph.add_vertex(
-                        ((cursor().pos().x() - ui->MapOfPoland->geometry().x() + left_os_navigation_bar_size) * (pixmap.width())) / ui->MapOfPoland->width(),
-                        ((cursor().pos().y() - ui->MapOfPoland->geometry().y() + bottom_os_navigation_bar_size) * (pixmap.height())) / ui->MapOfPoland->height()
-                        );
+            graph.add_vertex(x_value, y_value);
+
             graph.display_graph();
             addition_vertex_required = false;
+            if(graph.get_order() > 3){
+                std::cout << "xd" << graph.get_order() << std::endl;
+                std::vector<int> test(graph.get_order());
+                for(int i = 0; i < graph.get_order(); ++i){
+                    test[i] = i;
+                }
+                print_route(test);
+                test.clear();
+            }
         }
         else if(removal_vertex_required){
             const auto array_iterator = std::find_if(array_of_points.begin(), array_of_points.end(),
@@ -234,3 +254,37 @@ void MainWindow::mousePressEvent(QMouseEvent* event) {
     }
 }
 
+void MainWindow::print_route(std::vector<int> vertices_order){
+    std::cout << "rysuje" << std::endl;
+    const int bottom_os_navigation_bar_size = height() - QGuiApplication::primaryScreen()->geometry().height();
+    const int left_os_navigation_bar_size = width() - QGuiApplication::primaryScreen()->geometry().width();
+    QPixmap pixmap = QPixmap(ui->MapOfPoland->pixmap()->copy());
+    QPainter painter(&pixmap);
+    painter.setPen(QPen(Qt::blue, 10, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+
+    for(const auto& vertex : graph.get_vertices_localization()){
+        QPoint v;
+        v.setX(vertex.second.get_x()); v.setY(vertex.second.get_y());
+        painter.drawPoint(v);
+    }
+    for(unsigned i = 0; i < vertices_order.size(); ++i){
+        const unsigned vertex_id = vertices_order[i];
+        const unsigned succesor_id = vertices_order[(i + 1) % vertices_order.size()];
+        std::pair<int, Point<double>> f_localization = *std::find_if(graph.get_vertices_localization().begin(), graph.get_vertices_localization().end(), [&](auto pair){
+            return pair.first == vertex_id;
+        });
+        std::pair<int, Point<double>> s_localization = *std::find_if(graph.get_vertices_localization().begin(), graph.get_vertices_localization().end(), [&](auto pair){
+            return pair.first == succesor_id;
+        });
+        QPoint p1, p2;
+        std::cout << "vector size: " << vertices_order.size() << std::endl;
+        std::cout << "indeksy: " << vertex_id << " " << succesor_id << std::endl;
+        std::cout << "punkty: "<< p1.x() << " " << p1.y() << "   " << p2.x() << " " << p2.y() << std::endl;
+        p1.setX(f_localization.second.get_x()); p1.setY(f_localization.second.get_y());
+        p2.setX(s_localization.second.get_x()); p2.setY(s_localization.second.get_y());
+        painter.drawLine(p1, p2);
+
+    }
+    ui->MapOfPoland->setPixmap(pixmap);
+    painter.end();
+}

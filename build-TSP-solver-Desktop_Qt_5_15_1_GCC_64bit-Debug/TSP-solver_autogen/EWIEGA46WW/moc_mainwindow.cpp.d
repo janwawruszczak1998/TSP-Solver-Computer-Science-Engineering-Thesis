@@ -2,7 +2,14 @@
   /home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/build-TSP-solver-Desktop_Qt_5_15_1_GCC_64bit-Debug/TSP-solver_autogen/moc_predefs.h \
   /home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/Graph.hpp \
   /home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/Point.hpp \
+  /home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/sa.h \
+  /home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/strategy.h \
+  /home/jan/Qt/5.15.1/gcc_64/include/QtCore/QList \
+  /home/jan/Qt/5.15.1/gcc_64/include/QtCore/QObject \
   /home/jan/Qt/5.15.1/gcc_64/include/QtCore/QPoint \
+  /home/jan/Qt/5.15.1/gcc_64/include/QtCore/QRect \
+  /home/jan/Qt/5.15.1/gcc_64/include/QtCore/QSize \
+  /home/jan/Qt/5.15.1/gcc_64/include/QtCore/QSizeF \
   /home/jan/Qt/5.15.1/gcc_64/include/QtCore/qalgorithms.h \
   /home/jan/Qt/5.15.1/gcc_64/include/QtCore/qarraydata.h \
   /home/jan/Qt/5.15.1/gcc_64/include/QtCore/qatomic.h \
@@ -15,7 +22,10 @@
   /home/jan/Qt/5.15.1/gcc_64/include/QtCore/qconfig.h \
   /home/jan/Qt/5.15.1/gcc_64/include/QtCore/qcontainerfwd.h \
   /home/jan/Qt/5.15.1/gcc_64/include/QtCore/qcontainertools_impl.h \
+  /home/jan/Qt/5.15.1/gcc_64/include/QtCore/qcoreapplication.h \
+  /home/jan/Qt/5.15.1/gcc_64/include/QtCore/qcoreevent.h \
   /home/jan/Qt/5.15.1/gcc_64/include/QtCore/qdatastream.h \
+  /home/jan/Qt/5.15.1/gcc_64/include/QtCore/qeventloop.h \
   /home/jan/Qt/5.15.1/gcc_64/include/QtCore/qflags.h \
   /home/jan/Qt/5.15.1/gcc_64/include/QtCore/qgenericatomic.h \
   /home/jan/Qt/5.15.1/gcc_64/include/QtCore/qglobal.h \
@@ -26,7 +36,9 @@
   /home/jan/Qt/5.15.1/gcc_64/include/QtCore/qiterator.h \
   /home/jan/Qt/5.15.1/gcc_64/include/QtCore/qline.h \
   /home/jan/Qt/5.15.1/gcc_64/include/QtCore/qlist.h \
+  /home/jan/Qt/5.15.1/gcc_64/include/QtCore/qlocale.h \
   /home/jan/Qt/5.15.1/gcc_64/include/QtCore/qlogging.h \
+  /home/jan/Qt/5.15.1/gcc_64/include/QtCore/qmap.h \
   /home/jan/Qt/5.15.1/gcc_64/include/QtCore/qmargins.h \
   /home/jan/Qt/5.15.1/gcc_64/include/QtCore/qmetatype.h \
   /home/jan/Qt/5.15.1/gcc_64/include/QtCore/qnamespace.h \
@@ -56,17 +68,23 @@
   /home/jan/Qt/5.15.1/gcc_64/include/QtCore/qsystemdetection.h \
   /home/jan/Qt/5.15.1/gcc_64/include/QtCore/qtcore-config.h \
   /home/jan/Qt/5.15.1/gcc_64/include/QtCore/qtypeinfo.h \
+  /home/jan/Qt/5.15.1/gcc_64/include/QtCore/qvariant.h \
   /home/jan/Qt/5.15.1/gcc_64/include/QtCore/qvarlengtharray.h \
   /home/jan/Qt/5.15.1/gcc_64/include/QtCore/qvector.h \
   /home/jan/Qt/5.15.1/gcc_64/include/QtCore/qversiontagging.h \
+  /home/jan/Qt/5.15.1/gcc_64/include/QtGui/QGuiApplication \
+  /home/jan/Qt/5.15.1/gcc_64/include/QtGui/QScreen \
+  /home/jan/Qt/5.15.1/gcc_64/include/QtGui/QTransform \
   /home/jan/Qt/5.15.1/gcc_64/include/QtGui/qbrush.h \
   /home/jan/Qt/5.15.1/gcc_64/include/QtGui/qcolor.h \
   /home/jan/Qt/5.15.1/gcc_64/include/QtGui/qcursor.h \
   /home/jan/Qt/5.15.1/gcc_64/include/QtGui/qfont.h \
   /home/jan/Qt/5.15.1/gcc_64/include/QtGui/qfontinfo.h \
   /home/jan/Qt/5.15.1/gcc_64/include/QtGui/qfontmetrics.h \
+  /home/jan/Qt/5.15.1/gcc_64/include/QtGui/qguiapplication.h \
   /home/jan/Qt/5.15.1/gcc_64/include/QtGui/qicon.h \
   /home/jan/Qt/5.15.1/gcc_64/include/QtGui/qimage.h \
+  /home/jan/Qt/5.15.1/gcc_64/include/QtGui/qinputmethod.h \
   /home/jan/Qt/5.15.1/gcc_64/include/QtGui/qkeysequence.h \
   /home/jan/Qt/5.15.1/gcc_64/include/QtGui/qmatrix.h \
   /home/jan/Qt/5.15.1/gcc_64/include/QtGui/qpaintdevice.h \
@@ -77,6 +95,7 @@
   /home/jan/Qt/5.15.1/gcc_64/include/QtGui/qregion.h \
   /home/jan/Qt/5.15.1/gcc_64/include/QtGui/qrgb.h \
   /home/jan/Qt/5.15.1/gcc_64/include/QtGui/qrgba64.h \
+  /home/jan/Qt/5.15.1/gcc_64/include/QtGui/qscreen.h \
   /home/jan/Qt/5.15.1/gcc_64/include/QtGui/qtgui-config.h \
   /home/jan/Qt/5.15.1/gcc_64/include/QtGui/qtguiglobal.h \
   /home/jan/Qt/5.15.1/gcc_64/include/QtGui/qtransform.h \
@@ -214,6 +233,7 @@
   /usr/include/c++/7/streambuf \
   /usr/include/c++/7/string \
   /usr/include/c++/7/string_view \
+  /usr/include/c++/7/thread \
   /usr/include/c++/7/tr1/bessel_function.tcc \
   /usr/include/c++/7/tr1/beta_function.tcc \
   /usr/include/c++/7/tr1/ell_integral.tcc \

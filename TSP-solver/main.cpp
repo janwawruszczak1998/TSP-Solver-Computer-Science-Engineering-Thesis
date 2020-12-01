@@ -5,12 +5,12 @@
 #include <QScreen>
 #include <iostream>
 
-tsp::Graph<double, std::vector> graph;
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow w;
+    tsp::Graph<double, std::vector> graph{};
+    MainWindow w(graph);
     w.setWindowTitle("TSP Solver");
     w.setWindowState(Qt::WindowMaximized);
     w.show();

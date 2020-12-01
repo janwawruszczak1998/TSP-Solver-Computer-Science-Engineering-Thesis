@@ -4,9 +4,13 @@
 #include <QMainWindow>
 #include <QPoint>
 #include <QSlider>
+#include <QGuiApplication>
+#include <QScreen>
 
 #include <vector>
 #include "Graph.hpp"
+#include "strategy.h"
+#include "sa.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,23 +21,30 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget * = nullptr);
+    MainWindow(tsp::Graph<double, std::vector>&, QWidget * = nullptr);
     ~MainWindow();
 
-    void mousePressEvent(QMouseEvent* = nullptr);
-
 private:
+    //methods
+    void mousePressEvent(QMouseEvent* = nullptr);
+    void print_route(std::vector<int> = {});
+    // variables and consts
+//    int bottom_os_navigation_bar_size{};
+//    int left_os_navigation_bar_size{};
+
+
+    tsp::Graph<double, std::vector>& graph;
     Ui::MainWindow *ui{nullptr};
     bool addition_vertex_required{false};
     bool removal_vertex_required{false};
     bool run_local_search{false};
     bool run_aco{false};
     bool run_pso{false};
-
+    Strategy* strategy{nullptr};
     std::vector<QPoint> array_of_points{0};
-    unsigned number_of_threads{0};
-    unsigned time_of_running{0};
-    unsigned time_of_travel{0};
+    unsigned number_of_threads{1};
+    unsigned time_of_running{1};
+    unsigned time_of_travel{1};
 
 private slots:
     void click_add_vertex();
