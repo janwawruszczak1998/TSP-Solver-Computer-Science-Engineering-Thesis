@@ -255,7 +255,7 @@
      <item>
       <widget class="QCheckBox" name="SACheckBox">
        <property name="text">
-        <string>Przeszukiwanie z zakazami</string>
+        <string>Symulowane wyżarzanie</string>
        </property>
        <property name="checked">
         <bool>false</bool>

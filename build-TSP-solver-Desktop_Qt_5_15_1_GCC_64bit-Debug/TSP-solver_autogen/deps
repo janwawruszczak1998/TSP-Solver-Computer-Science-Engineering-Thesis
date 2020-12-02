@@ -3,7 +3,7 @@ TSP-solver_autogen/timestamp: \
 	/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/Graph.hpp \
 	/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/Point.hpp \
 	/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/mainwindow.h \
-	/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/sa.h \
+	/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/randoms.h \
 	/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/strategy.h \
 	/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/build-TSP-solver-Desktop_Qt_5_15_1_GCC_64bit-Debug/CMakeFiles/3.18.3/CMakeCXXCompiler.cmake \
 	/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/build-TSP-solver-Desktop_Qt_5_15_1_GCC_64bit-Debug/CMakeFiles/3.18.3/CMakeSystem.cmake \
@@ -302,10 +302,12 @@ TSP-solver_autogen/timestamp: \
 	/usr/include/c++/7/list \
 	/usr/include/c++/7/map \
 	/usr/include/c++/7/memory \
+	/usr/include/c++/7/mutex \
 	/usr/include/c++/7/new \
 	/usr/include/c++/7/numeric \
 	/usr/include/c++/7/optional \
 	/usr/include/c++/7/ostream \
+	/usr/include/c++/7/random \
 	/usr/include/c++/7/stdexcept \
 	/usr/include/c++/7/streambuf \
 	/usr/include/c++/7/string \

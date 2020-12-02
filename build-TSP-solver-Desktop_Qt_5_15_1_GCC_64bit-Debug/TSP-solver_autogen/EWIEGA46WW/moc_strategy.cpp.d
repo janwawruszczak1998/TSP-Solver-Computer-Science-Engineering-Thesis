@@ -1,7 +1,8 @@
-/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/build-TSP-solver-Desktop_Qt_5_15_1_GCC_64bit-Debug/TSP-solver_autogen/EWIEGA46WW/moc_mainwindow.cpp: /home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/mainwindow.h \
+/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/build-TSP-solver-Desktop_Qt_5_15_1_GCC_64bit-Debug/TSP-solver_autogen/EWIEGA46WW/moc_strategy.cpp: /home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/strategy.h \
   /home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/build-TSP-solver-Desktop_Qt_5_15_1_GCC_64bit-Debug/TSP-solver_autogen/moc_predefs.h \
   /home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/Graph.hpp \
   /home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/Point.hpp \
+  /home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/mainwindow.h \
   /home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/randoms.h \
   /home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/strategy.h \
   /home/jan/Qt/5.15.1/gcc_64/include/QtCore/QList \

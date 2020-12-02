@@ -1,10 +1,12 @@
 #include "strategy.h"
 #include <thread>
 
-Strategy::Strategy(tsp::Graph<double, std::vector>& graph_, unsigned& result_)
+Strategy::Strategy(tsp::Graph<double, std::vector>& graph_, unsigned& result_, std::vector<unsigned>& route_)
 :
 graph{graph_},
-result{result_}
+result___{result_},
+route___{route_},
+randoms{time(0)}
 {
 }
 
@@ -15,11 +17,11 @@ std::thread& Strategy::get_algo_thread(){
     return algo_thread;
 }
 
-unsigned Strategy::random_path(std::vector<unsigned> &v, std::unique_ptr <tsp::Graph<double, std::vector>> &g) {
+double Strategy::random_path(std::vector<unsigned> &v, tsp::Graph<double, std::vector> &g) {
 
     v.clear();
-    v.reserve(g->get_order());
-    for (unsigned i = 0; i < g->get_order(); ++i) {
+    v.reserve(g.get_order());
+    for (unsigned i = 0; i < g.get_order(); ++i) {
         v.push_back(i);
     }
 
@@ -28,15 +30,15 @@ unsigned Strategy::random_path(std::vector<unsigned> &v, std::unique_ptr <tsp::G
 
 }
 
-unsigned calculate_objective(std::vector<unsigned> &permutation, std::unique_ptr <tsp::Graph<double, std::vector>> &g) {
+double Strategy::calculate_objective(std::vector<unsigned> &permutation, tsp::Graph<double, std::vector> &g) {
     unsigned result = 0;
 
     for (auto it = permutation.cbegin(); it + 1 != permutation.cend(); ++it) {
-        result += g->get_distance(*it, *(it+1));
+        result += g.get_distance(*it, *(it+1));
 
     }
 
-    result += g->get_distance(*(permutation.end() - 1), *(permutation.begin()));
+    result += g.get_distance(*(permutation.end() - 1), *(permutation.begin()));
     return result;
 
 }

@@ -4,6 +4,7 @@
 #include "aco.h"
 #include "sa.h"
 #include "pso.h"
+#include "dynamicprogrammingalgorithm.h"
 
 #include <QCursor>
 #include <QMouseEvent>
@@ -17,6 +18,7 @@
 #include <algorithm>
 #include <cmath>
 #include <vector>
+
 
 MainWindow::MainWindow(tsp::Graph<double, std::vector>& graph_, QWidget *parent)
     : QMainWindow(parent)
@@ -86,61 +88,77 @@ void MainWindow::set_number_of_threads(){
 }
 
 void MainWindow::run_algorithms(){
-    if(strategy){
-        delete strategy;
+    if(graph.get_order() < 3){
+        return;
     }
 
+    bool aco{MainWindow::findChild<QCheckBox*>("ACOCheckBox")->isChecked()},
+    pso{MainWindow::findChild<QCheckBox*>("PSOCheckBox")->isChecked()},
+    sa{MainWindow::findChild<QCheckBox*>("SACheckBox")->isChecked()};
     int num_of_choosen_algorithms{0};
-    if(MainWindow::findChild<QCheckBox*>("ACOCheckBox")->isChecked()){
+    if(aco){
         num_of_choosen_algorithms++;
     }
-    if(MainWindow::findChild<QCheckBox*>("PSOCheckBox")->isChecked()){
+    if(pso){
         num_of_choosen_algorithms++;
     }
-    if(MainWindow::findChild<QCheckBox*>("SACheckBox")->isChecked()){
+    if(sa){
         num_of_choosen_algorithms++;
     }
 
-    int available_minutes{0};
+    unsigned available_minutes{0};
+
     if(num_of_choosen_algorithms){
         available_minutes /= num_of_choosen_algorithms;
     }
 
 
-    std::vector<std::unique_ptr<Strategy>> algorithms(number_of_threads);
+    algorithms.resize(number_of_threads);
+    std::vector<unsigned> path_to_draw(graph.get_order());
 
-    if(MainWindow::findChild<QCheckBox*>("SACheckBox")->isChecked()){
-        for(unsigned i = 0; i < number_of_threads; ++i){
-            std::cout << "klikniete" << std::endl;
-            algorithms[i] = std::make_unique<SA>(graph, time_of_travel);
-        }
-        for(unsigned i = 0; i < number_of_threads; ++i){
-            algorithms[i]->get_algo_thread().join();
-        }
-    }
 
-    if(MainWindow::findChild<QCheckBox*>("ACOCheckBox")->isChecked()){
+    time_of_travel = 1000000000;
+    if(sa){
         for(unsigned i = 0; i < number_of_threads; ++i){
-            std::cout << "klikniete" << std::endl;
-            algorithms[i] = std::make_unique<ACO>(graph, time_of_travel);
+            algorithms[i] = std::make_unique<SA>(graph, time_of_travel, path_to_draw);
         }
-        for(unsigned i = 0; i < number_of_threads; ++i){
-            algorithms[i]->get_algo_thread().join();
-        }
-    }
-
-    if(MainWindow::findChild<QCheckBox*>("PSOCheckBox")->isChecked()){
-        for(unsigned i = 0; i < number_of_threads; ++i){
-            std::cout << "klikniete" << std::endl;
-            algorithms[i] = std::make_unique<PSO>(graph, time_of_travel);
-        }
-        for(unsigned i = 0; i < number_of_threads; ++i){
-            algorithms[i]->get_algo_thread().join();
+        for(auto& algorithm : algorithms){
+            algorithm->get_algo_thread().join();
         }
     }
 
 
-    ui->CostText->setText(QString::number(time_of_travel) + " jednostek");
+    if(aco){
+        for(unsigned i = 0; i < number_of_threads; ++i){
+            algorithms[i] = std::make_unique<ACO>(graph, time_of_travel, path_to_draw);
+        }
+        for(auto& algorithm : algorithms){
+            algorithm->get_algo_thread().join();
+        }
+    }
+
+    if(pso){
+        for(unsigned i = 0; i < number_of_threads; ++i){
+            algorithms[i] = std::make_unique<PSO>(graph, time_of_travel, path_to_draw);
+        }
+        for(auto& algorithm : algorithms){
+            algorithm->get_algo_thread().join();
+        }
+    }
+
+
+    if(!sa && !aco && !pso && graph.get_order() < 15){
+        algorithms[0] = std::make_unique<DP>(graph, time_of_travel, path_to_draw);
+        ui->CostText->setText(QString::number(time_of_travel) + " jednostek");
+        print_route(path_to_draw);
+    }
+    else if(!sa && !aco && !pso && graph.get_order() >= 15){
+        ui->CostText->setText("Proszę wybrać algorytmy");
+    }
+    else{
+        ui->CostText->setText(QString::number(time_of_travel) + " jednostek");
+        print_route(path_to_draw);
+    }
 }
 
 void MainWindow::click_add_vertex(){
@@ -212,15 +230,6 @@ void MainWindow::mousePressEvent(QMouseEvent* event) {
 
             graph.display_graph();
             addition_vertex_required = false;
-            if(graph.get_order() > 3){
-                std::cout << "xd" << graph.get_order() << std::endl;
-                std::vector<int> test(graph.get_order());
-                for(int i = 0; i < graph.get_order(); ++i){
-                    test[i] = i;
-                }
-                print_route(test);
-                test.clear();
-            }
         }
         else if(removal_vertex_required){
             const auto array_iterator = std::find_if(array_of_points.begin(), array_of_points.end(),
@@ -254,19 +263,22 @@ void MainWindow::mousePressEvent(QMouseEvent* event) {
     }
 }
 
-void MainWindow::print_route(std::vector<int> vertices_order){
-    std::cout << "rysuje" << std::endl;
+void MainWindow::print_route(std::vector<unsigned> vertices_order){
     const int bottom_os_navigation_bar_size = height() - QGuiApplication::primaryScreen()->geometry().height();
     const int left_os_navigation_bar_size = width() - QGuiApplication::primaryScreen()->geometry().width();
+
+    ui->MapOfPoland->setPixmap(QPixmap("../map_of_poland.png"));
     QPixmap pixmap = QPixmap(ui->MapOfPoland->pixmap()->copy());
     QPainter painter(&pixmap);
-    painter.setPen(QPen(Qt::blue, 10, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
 
+    painter.setPen(QPen(Qt::red, 30, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
     for(const auto& vertex : graph.get_vertices_localization()){
         QPoint v;
         v.setX(vertex.second.get_x()); v.setY(vertex.second.get_y());
         painter.drawPoint(v);
     }
+
+    painter.setPen(QPen(Qt::blue, 5, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
     for(unsigned i = 0; i < vertices_order.size(); ++i){
         const unsigned vertex_id = vertices_order[i];
         const unsigned succesor_id = vertices_order[(i + 1) % vertices_order.size()];
@@ -277,9 +289,7 @@ void MainWindow::print_route(std::vector<int> vertices_order){
             return pair.first == succesor_id;
         });
         QPoint p1, p2;
-        std::cout << "vector size: " << vertices_order.size() << std::endl;
-        std::cout << "indeksy: " << vertex_id << " " << succesor_id << std::endl;
-        std::cout << "punkty: "<< p1.x() << " " << p1.y() << "   " << p2.x() << " " << p2.y() << std::endl;
+
         p1.setX(f_localization.second.get_x()); p1.setY(f_localization.second.get_y());
         p2.setX(s_localization.second.get_x()); p2.setY(s_localization.second.get_y());
         painter.drawLine(p1, p2);

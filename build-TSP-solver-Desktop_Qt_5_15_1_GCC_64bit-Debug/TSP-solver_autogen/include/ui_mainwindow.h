@@ -310,7 +310,7 @@ public:
         AddVertexButton->setText(QCoreApplication::translate("MainWindow", "Dodaj punkt na mapie", nullptr));
         RemoveVertexButton->setText(QCoreApplication::translate("MainWindow", "Usu\305\204 punkt z mapy", nullptr));
         ClearVerticlesButton->setText(QCoreApplication::translate("MainWindow", "Wyczy\305\233\304\207 map\304\231", nullptr));
-        SACheckBox->setText(QCoreApplication::translate("MainWindow", "Przeszukiwanie z zakazami", nullptr));
+        SACheckBox->setText(QCoreApplication::translate("MainWindow", "Symulowane wy\305\274arzanie", nullptr));
         ACOCheckBox->setText(QCoreApplication::translate("MainWindow", "Kolonia mr\303\263wek", nullptr));
         PSOCheckBox->setText(QCoreApplication::translate("MainWindow", "R\303\263j cz\304\205stek", nullptr));
         CostLabel->setText(QCoreApplication::translate("MainWindow", "Szacowany czas przejazdu:", nullptr));

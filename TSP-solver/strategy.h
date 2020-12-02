@@ -5,26 +5,31 @@
 #include <thread>
 
 #include "Graph.hpp"
+#include "randoms.h"
+#include "mutex"
+
 
 class Strategy
 {
 public:
-    Strategy(tsp::Graph<double, std::vector> &, unsigned&);
+    Strategy(tsp::Graph<double, std::vector> &, unsigned&, std::vector<unsigned>&);
     virtual ~Strategy();
 
     virtual void calculate_solution() = 0;
 
     std::thread& get_algo_thread();
-    unsigned random_path(std::vector<unsigned> &, std::unique_ptr <tsp::Graph<double, std::vector>> &);
-    unsigned calculate_objective(std::vector<unsigned> &permutation, std::unique_ptr <tsp::Graph<double, std::vector>> &);
+    double random_path(std::vector<unsigned> &, tsp::Graph<double, std::vector> &);
+    double calculate_objective(std::vector<unsigned> &permutation, tsp::Graph<double, std::vector> &);
 
 protected:
-    static int solution_cost;
-    static std::vector<int> solution;
-    std::thread algo_thread;
+    std::thread algo_thread{};
+    std::mutex result_mutex{};
 
     tsp::Graph<double, std::vector> &graph;
-    unsigned& result;
+    unsigned& result___;
+    std::vector<unsigned>& route___;
+    re::Randoms randoms;
+
 };
 
 #endif // STRATEGY_H

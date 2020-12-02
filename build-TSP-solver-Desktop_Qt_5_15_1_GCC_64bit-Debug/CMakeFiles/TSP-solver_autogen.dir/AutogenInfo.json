@@ -97,6 +97,11 @@
 			"EWIEGA46WW/moc_Graph.cpp"
 		],
 		[
+			"/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/Point.hpp",
+			"MU",
+			"EWIEGA46WW/moc_Point.cpp"
+		],
+		[
 			"/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/aco.h",
 			"MU",
 			"EWIEGA46WW/moc_aco.cpp"
@@ -115,6 +120,11 @@
 			"/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/pso.h",
 			"MU",
 			"EWIEGA46WW/moc_pso.cpp"
+		],
+		[
+			"/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/randoms.h",
+			"MU",
+			"EWIEGA46WW/moc_randoms.cpp"
 		],
 		[
 			"/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/sa.h",
@@ -198,6 +208,10 @@
 		],
 		[
 			"/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/pso.cpp",
+			"MU"
+		],
+		[
+			"/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/randoms.cpp",
 			"MU"
 		],
 		[
