@@ -5,6 +5,7 @@
 ACO::ACO(tsp::Graph<double, std::vector>& graph_, unsigned& result_, std::vector<unsigned>& route_)
 : Strategy(graph_, result_, route_)
 {
+    run_flag = true;
     algo_thread = std::thread{[this](){this->calculate_solution();}};
 }
 
@@ -34,15 +35,15 @@ void ACO::calculate_solution() {
 
 
         //wielokrotne puszczenie mrowek
-        for (unsigned i = 0; i < iterations; ++i) {
+        while (run_flag == true) {
             //czyszczenie starych tras
             for (unsigned ant = 0; ant < numOfAnts; ++ant) {
                 for (auto &route : routes[ant]) {
                     route = -1;
                 }
                 //stworzenie mrowki i puszczenie jej w trase
-                Ant *next_ant = new Ant(ant, graph.get_order());
-                route(next_ant, routes, graph, pheromones);
+                Ant next_ant(ant, graph.get_order());
+                route(&next_ant, routes, graph, pheromones);
 
             }
 

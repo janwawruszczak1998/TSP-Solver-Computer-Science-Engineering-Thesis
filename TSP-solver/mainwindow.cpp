@@ -18,6 +18,7 @@
 #include <algorithm>
 #include <cmath>
 #include <vector>
+#include <chrono>
 
 
 MainWindow::MainWindow(tsp::Graph<double, std::vector>& graph_, QWidget *parent)
@@ -74,7 +75,7 @@ void MainWindow::set_time_of_running(){
 }
 
 void MainWindow::set_number_of_threads(){
-    number_of_threads = ui->ThreadsSlider->value() + 1;
+    number_of_threads = ui->ThreadsSlider->value()/4 + 1;
     if(number_of_threads == 1){
         ui->ThreadsText->setText(QString::number(number_of_threads) + " wątek");
     }
@@ -112,38 +113,90 @@ void MainWindow::run_algorithms(){
         available_minutes /= num_of_choosen_algorithms;
     }
 
+    ui->AddVertexButton->setEnabled(false);
+    ui->ClearVerticlesButton->setEnabled(false);
+    ui->RemoveVertexButton->setEnabled(false);
+    ui->RunButton->setEnabled(false);
+
 
     algorithms.resize(number_of_threads);
     std::vector<unsigned> path_to_draw(graph.get_order());
 
-
+    ui->CostText->setText("Trwa obliczanie trasy");
+    repaint();
     time_of_travel = 1000000000;
+
     if(sa){
+        auto start_time = std::chrono::high_resolution_clock::now();
         for(unsigned i = 0; i < number_of_threads; ++i){
             algorithms[i] = std::make_unique<SA>(graph, time_of_travel, path_to_draw);
         }
-        for(auto& algorithm : algorithms){
-            algorithm->get_algo_thread().join();
+
+        auto end_time = std::chrono::high_resolution_clock::now();
+        while(std::chrono::duration_cast<std::chrono::minutes>(end_time - start_time).count() < (time_of_running / num_of_choosen_algorithms > 1 ? time_of_running / num_of_choosen_algorithms : 1)){
+            end_time = std::chrono::high_resolution_clock::now();
+            std::this_thread::sleep_for(std::chrono::milliseconds(10));
+            print_route(path_to_draw);
+            repaint();
+            qApp->processEvents();
         }
+
+        algorithms[0]->run_flag = false;
+        for(unsigned i = 0; i < number_of_threads; ++i){
+            if(algorithms[i]->get_algo_thread().joinable()){
+                algorithms[i]->get_algo_thread().join();
+            }
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
     }
+
+
 
 
     if(aco){
+        auto start_time = std::chrono::high_resolution_clock::now();
         for(unsigned i = 0; i < number_of_threads; ++i){
             algorithms[i] = std::make_unique<ACO>(graph, time_of_travel, path_to_draw);
         }
-        for(auto& algorithm : algorithms){
-            algorithm->get_algo_thread().join();
+        auto end_time = std::chrono::high_resolution_clock::now();
+        while(std::chrono::duration_cast<std::chrono::minutes>(end_time - start_time).count() < (time_of_running / num_of_choosen_algorithms > 1 ? time_of_running / num_of_choosen_algorithms : 1)){
+            end_time = std::chrono::high_resolution_clock::now();
+            std::this_thread::sleep_for(std::chrono::milliseconds(10));
+            print_route(path_to_draw);
+            repaint();
+            qApp->processEvents();
         }
+
+        algorithms[0]->run_flag = false;
+        for(unsigned i = 0; i < number_of_threads; ++i){
+            if(algorithms[i]->get_algo_thread().joinable()){
+                algorithms[i]->get_algo_thread().join();
+            }
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
     }
 
     if(pso){
+        auto start_time = std::chrono::high_resolution_clock::now();
         for(unsigned i = 0; i < number_of_threads; ++i){
             algorithms[i] = std::make_unique<PSO>(graph, time_of_travel, path_to_draw);
         }
-        for(auto& algorithm : algorithms){
-            algorithm->get_algo_thread().join();
+        auto end_time = std::chrono::high_resolution_clock::now();
+        while(std::chrono::duration_cast<std::chrono::minutes>(end_time - start_time).count() < (time_of_running / num_of_choosen_algorithms > 1 ? time_of_running / num_of_choosen_algorithms : 1)){
+            end_time = std::chrono::high_resolution_clock::now();
+            std::this_thread::sleep_for(std::chrono::milliseconds(10));
+            print_route(path_to_draw);
+            repaint();
+            qApp->processEvents();
         }
+
+        algorithms[0]->run_flag = false;
+        for(unsigned i = 0; i < number_of_threads; ++i){
+            if(algorithms[i]->get_algo_thread().joinable()){
+                algorithms[i]->get_algo_thread().join();
+            }
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
     }
 
 
@@ -159,6 +212,11 @@ void MainWindow::run_algorithms(){
         ui->CostText->setText(QString::number(time_of_travel) + " jednostek");
         print_route(path_to_draw);
     }
+
+    ui->AddVertexButton->setEnabled(true);
+    ui->ClearVerticlesButton->setEnabled(true);
+    ui->RemoveVertexButton->setEnabled(true);
+    ui->RunButton->setEnabled(true);
 }
 
 void MainWindow::click_add_vertex(){
@@ -214,19 +272,10 @@ void MainWindow::mousePressEvent(QMouseEvent* event) {
                 array_of_points.push_back(point);
             }
 
-            ui->MapOfPoland->setPixmap(QPixmap("../map_of_poland.png"));
-            pixmap = QPixmap(ui->MapOfPoland->pixmap()->copy());
-            QPainter painter(&pixmap);
-            painter.setPen(QPen(Qt::red, 30, Qt::DotLine, Qt::RoundCap, Qt::RoundJoin));
-
-            for(const auto& point_to_draw : array_of_points){
-                painter.drawPoint(point_to_draw);
-            }
-
-            ui->MapOfPoland->setPixmap(pixmap);
-            painter.end();
 
             graph.add_vertex(x_value, y_value);
+
+            print_route({});
 
             graph.display_graph();
             addition_vertex_required = false;
@@ -234,23 +283,13 @@ void MainWindow::mousePressEvent(QMouseEvent* event) {
         else if(removal_vertex_required){
             const auto array_iterator = std::find_if(array_of_points.begin(), array_of_points.end(),
                                     [&point](const QPoint& m_point)
-                                    {return std::abs(m_point.x() - point.x()) < 20 && std::abs(m_point.y() - point.y()) < 20;});
+                                    {return std::abs(m_point.x() - point.x()) < 15 && std::abs(m_point.y() - point.y()) < 15;});
             if(array_iterator != array_of_points.end()){
                 array_of_points.erase(array_iterator);
             }
             else{return;}
 
-            ui->MapOfPoland->setPixmap(QPixmap("../map_of_poland.png"));
-            pixmap = QPixmap(ui->MapOfPoland->pixmap()->copy());
-            QPainter painter(&pixmap);
-            painter.setPen(QPen(Qt::red, 30, Qt::DotLine, Qt::RoundCap, Qt::RoundJoin));
-
-            for(const auto& point_to_draw : array_of_points){
-                painter.drawPoint(point_to_draw);
-            }
-
-            ui->MapOfPoland->setPixmap(pixmap);
-            painter.end();
+            print_route({});
 
             graph.remove_vertex(
                         ((cursor().pos().x() - ui->MapOfPoland->geometry().x() + left_os_navigation_bar_size) * (pixmap.width())) / ui->MapOfPoland->width(),
@@ -278,7 +317,7 @@ void MainWindow::print_route(std::vector<unsigned> vertices_order){
         painter.drawPoint(v);
     }
 
-    painter.setPen(QPen(Qt::blue, 5, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+    painter.setPen(QPen(Qt::blue, 10, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
     for(unsigned i = 0; i < vertices_order.size(); ++i){
         const unsigned vertex_id = vertices_order[i];
         const unsigned succesor_id = vertices_order[(i + 1) % vertices_order.size()];

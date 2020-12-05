@@ -6,6 +6,7 @@
 SA::SA(tsp::Graph<double, std::vector>& graph_, unsigned& result_, std::vector<unsigned>& route_)
 : Strategy(graph_, result_, route_)
 {
+    run_flag = true;
     algo_thread = std::thread{[this](){this->calculate_solution();}};
 }
 
@@ -25,7 +26,7 @@ void SA::calculate_solution() {
       unsigned iteration = 0;  //liczba iteracji w ramach jednego chlodzenia i wyzazania
       double temperature = 1e9;   //temperatura poczatkowa
 
-      for (unsigned num_of_try = 0; num_of_try < 100; ++num_of_try) {
+      while(run_flag == true) {
           //cout << num_of_try << "%\n";
           while (temperature > 0.1) {
 
@@ -77,7 +78,6 @@ void SA::calculate_solution() {
                       solution = next_step;
                       {
                           std::lock_guard<std::mutex> lock(result_mutex);
-                          std::cout << "xd" << std::endl;
                           if(result___ > step_val){
                               result___ = step_val;
                               route___ = solution;

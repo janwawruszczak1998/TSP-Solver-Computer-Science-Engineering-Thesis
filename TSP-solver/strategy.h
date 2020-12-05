@@ -21,6 +21,8 @@ public:
     double random_path(std::vector<unsigned> &, tsp::Graph<double, std::vector> &);
     double calculate_objective(std::vector<unsigned> &permutation, tsp::Graph<double, std::vector> &);
 
+    static bool run_flag;
+
 protected:
     std::thread algo_thread{};
     std::mutex result_mutex{};

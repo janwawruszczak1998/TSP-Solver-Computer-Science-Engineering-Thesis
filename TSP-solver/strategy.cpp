@@ -13,6 +13,8 @@ randoms{time(0)}
 Strategy::~Strategy(){
 }
 
+bool Strategy::run_flag = false;
+
 std::thread& Strategy::get_algo_thread(){
     return algo_thread;
 }
