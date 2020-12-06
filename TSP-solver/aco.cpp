@@ -2,6 +2,8 @@
 #include "strategy.h"
 #include <thread>
 
+
+//aco class
 ACO::ACO(tsp::Graph<double, std::vector>& graph_, unsigned& result_, std::vector<unsigned>& route_)
 : Strategy(graph_, result_, route_)
 {
@@ -164,7 +166,7 @@ void ACO::route(ACO::Ant *ant, std::vector <std::vector<unsigned>> &routes, tsp:
 
 
 
-
+// ant class
 ACO::Ant::Ant(unsigned number_, unsigned n)
 : number(number_){
     tabu.resize(n, false);

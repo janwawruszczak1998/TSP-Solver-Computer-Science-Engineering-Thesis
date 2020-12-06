@@ -27,9 +27,10 @@ MainWindow::MainWindow(tsp::Graph<double, std::vector>& graph_, QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->TimeText->setText(QString::number(1) + " min");
+    ui->TimeText->setText(QString::number(3) + " min");
     ui->ThreadsText->setText(QString::number(1) + " wątek");
     ui->CostText->setText("-----");
+    ui->ImprovementsText->setText("-----");
 
 
     // buttons
@@ -65,11 +66,14 @@ MainWindow::MainWindow(tsp::Graph<double, std::vector>& graph_, QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+    for(auto& algorithm : algorithms){
+        algorithm->get_algo_thread().join();
+    }
     delete ui;
 }
 
 void MainWindow::set_time_of_running(){
-    time_of_running = ui->TimeSlider->value() + 1;
+    time_of_running = ui->TimeSlider->value();
     ui->TimeText->setText(QString::number(time_of_running) + " min");
 
 }
@@ -89,14 +93,14 @@ void MainWindow::set_number_of_threads(){
 }
 
 void MainWindow::run_algorithms(){
-    if(graph.get_order() < 3){
+    if(graph.get_order() < 4){
         return;
     }
 
     bool aco{MainWindow::findChild<QCheckBox*>("ACOCheckBox")->isChecked()},
     pso{MainWindow::findChild<QCheckBox*>("PSOCheckBox")->isChecked()},
     sa{MainWindow::findChild<QCheckBox*>("SACheckBox")->isChecked()};
-    int num_of_choosen_algorithms{0};
+    unsigned num_of_choosen_algorithms{0}, num_of_improvement{1};
     if(aco){
         num_of_choosen_algorithms++;
     }
@@ -117,6 +121,8 @@ void MainWindow::run_algorithms(){
     ui->ClearVerticlesButton->setEnabled(false);
     ui->RemoveVertexButton->setEnabled(false);
     ui->RunButton->setEnabled(false);
+    ui->TimeSlider->setEnabled(false);
+    ui->ThreadsSlider->setEnabled(false);
 
 
     algorithms.resize(number_of_threads);
@@ -126,17 +132,26 @@ void MainWindow::run_algorithms(){
     repaint();
     time_of_travel = 1000000000;
 
+    auto start_time = std::chrono::high_resolution_clock::now();
     if(sa){
-        auto start_time = std::chrono::high_resolution_clock::now();
+        auto sa_start_time = std::chrono::high_resolution_clock::now();
         for(unsigned i = 0; i < number_of_threads; ++i){
             algorithms[i] = std::make_unique<SA>(graph, time_of_travel, path_to_draw);
         }
 
-        auto end_time = std::chrono::high_resolution_clock::now();
-        while(std::chrono::duration_cast<std::chrono::minutes>(end_time - start_time).count() < (time_of_running / num_of_choosen_algorithms > 1 ? time_of_running / num_of_choosen_algorithms : 1)){
-            end_time = std::chrono::high_resolution_clock::now();
+        auto prev_time_of_travel = time_of_travel;
+        auto sa_end_time = std::chrono::high_resolution_clock::now();
+        while(std::chrono::duration_cast<std::chrono::seconds>(sa_end_time - sa_start_time).count() <  (60 * time_of_running) / num_of_choosen_algorithms){
+            if(prev_time_of_travel > time_of_travel && time_of_travel < 1000000000){
+                num_of_improvement++;
+                ui->ImprovementsLabel->setText("Poprawa nr: " + QString::number(num_of_improvement));
+                ui->ImprovementsText->setText("Poprawiono rozwiązanie o " + QString::number(static_cast<double>((100 * static_cast<double>((prev_time_of_travel - time_of_travel))/prev_time_of_travel)), 'g', 3) + "%");
+                prev_time_of_travel = time_of_travel;
+            }
+            sa_end_time = std::chrono::high_resolution_clock::now();
             std::this_thread::sleep_for(std::chrono::milliseconds(10));
             print_route(path_to_draw);
+            ui->AlgorithmsProgressBar->setValue( (100 * std::chrono::duration_cast<std::chrono::seconds>(sa_end_time - start_time).count()) / (time_of_running * 60) );
             repaint();
             qApp->processEvents();
         }
@@ -154,15 +169,24 @@ void MainWindow::run_algorithms(){
 
 
     if(aco){
-        auto start_time = std::chrono::high_resolution_clock::now();
+        auto aco_start_time = std::chrono::high_resolution_clock::now();
         for(unsigned i = 0; i < number_of_threads; ++i){
-            algorithms[i] = std::make_unique<ACO>(graph, time_of_travel, path_to_draw);
+            algorithms[i] = std::make_unique<PSO>(graph, time_of_travel, path_to_draw);
         }
-        auto end_time = std::chrono::high_resolution_clock::now();
-        while(std::chrono::duration_cast<std::chrono::minutes>(end_time - start_time).count() < (time_of_running / num_of_choosen_algorithms > 1 ? time_of_running / num_of_choosen_algorithms : 1)){
-            end_time = std::chrono::high_resolution_clock::now();
+
+        auto prev_time_of_travel = time_of_travel;
+        auto aco_end_time = std::chrono::high_resolution_clock::now();
+        while(std::chrono::duration_cast<std::chrono::seconds>(aco_end_time - aco_start_time).count() < (60 * time_of_running) / num_of_choosen_algorithms){
+            if(prev_time_of_travel > time_of_travel && time_of_travel < 1000000000){
+                num_of_improvement++;
+                ui->ImprovementsLabel->setText("Poprawa nr: " + QString::number(num_of_improvement));
+                ui->ImprovementsText->setText("Poprawiono rozwiązanie o " + QString::number(static_cast<double>((100 * static_cast<double>((prev_time_of_travel - time_of_travel))/prev_time_of_travel)), 'g', 3) + "%");
+                prev_time_of_travel = time_of_travel;
+            }
+            aco_end_time = std::chrono::high_resolution_clock::now();
             std::this_thread::sleep_for(std::chrono::milliseconds(10));
             print_route(path_to_draw);
+            ui->AlgorithmsProgressBar->setValue( (100 * std::chrono::duration_cast<std::chrono::seconds>(aco_end_time - start_time).count()) / (time_of_running * 60) );
             repaint();
             qApp->processEvents();
         }
@@ -177,15 +201,24 @@ void MainWindow::run_algorithms(){
     }
 
     if(pso){
-        auto start_time = std::chrono::high_resolution_clock::now();
+        auto pso_start_time = std::chrono::high_resolution_clock::now();
         for(unsigned i = 0; i < number_of_threads; ++i){
             algorithms[i] = std::make_unique<PSO>(graph, time_of_travel, path_to_draw);
         }
-        auto end_time = std::chrono::high_resolution_clock::now();
-        while(std::chrono::duration_cast<std::chrono::minutes>(end_time - start_time).count() < (time_of_running / num_of_choosen_algorithms > 1 ? time_of_running / num_of_choosen_algorithms : 1)){
-            end_time = std::chrono::high_resolution_clock::now();
+
+        auto prev_time_of_travel = time_of_travel;
+        auto pso_end_time = std::chrono::high_resolution_clock::now();
+        while(std::chrono::duration_cast<std::chrono::seconds>(pso_end_time - pso_start_time).count() < (60 * time_of_running) / num_of_choosen_algorithms){
+            if(prev_time_of_travel > time_of_travel && time_of_travel < 1000000000){
+                num_of_improvement++;
+                ui->ImprovementsLabel->setText("Poprawa nr: " + QString::number(num_of_improvement));
+                ui->ImprovementsText->setText("Poprawiono rozwiązanie o " + QString::number(static_cast<double>((100 * static_cast<double>((prev_time_of_travel - time_of_travel))/prev_time_of_travel)), 'g', 3) + "%");
+                prev_time_of_travel = time_of_travel;
+            }
+            pso_end_time = std::chrono::high_resolution_clock::now();
             std::this_thread::sleep_for(std::chrono::milliseconds(10));
             print_route(path_to_draw);
+            ui->AlgorithmsProgressBar->setValue( (100 * std::chrono::duration_cast<std::chrono::seconds>(pso_end_time - start_time).count()) / (time_of_running * 60) );
             repaint();
             qApp->processEvents();
         }
@@ -217,6 +250,8 @@ void MainWindow::run_algorithms(){
     ui->ClearVerticlesButton->setEnabled(true);
     ui->RemoveVertexButton->setEnabled(true);
     ui->RunButton->setEnabled(true);
+    ui->TimeSlider->setEnabled(true);
+    ui->ThreadsSlider->setEnabled(true);
 }
 
 void MainWindow::click_add_vertex(){

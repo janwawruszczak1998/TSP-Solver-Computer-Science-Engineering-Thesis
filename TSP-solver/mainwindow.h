@@ -40,8 +40,8 @@ private:
     std::vector<std::unique_ptr<Strategy>> algorithms;
     std::vector<QPoint> array_of_points{0};
     unsigned number_of_threads{1};
-    unsigned time_of_running{1};
-    unsigned time_of_travel{1};
+    unsigned time_of_running{3};
+    unsigned time_of_travel{0};
 
 private slots:
     void click_add_vertex();

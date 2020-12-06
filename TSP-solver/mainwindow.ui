@@ -70,6 +70,9 @@
        <property name="styleSheet">
         <string notr="true"/>
        </property>
+       <property name="minimum">
+        <number>3</number>
+       </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -287,7 +290,7 @@
       <x>1040</x>
       <y>100</y>
       <width>258</width>
-      <height>95</height>
+      <height>301</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="CostLayout">
@@ -309,7 +312,7 @@
      <item>
       <widget class="QLineEdit" name="CostText">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -324,20 +327,24 @@
        </property>
       </widget>
      </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>1040</x>
-      <y>240</y>
-      <width>258</width>
-      <height>217</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="RouteLayout">
      <item>
-      <widget class="QLabel" name="RouteLabel">
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Preferred</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QLabel" name="ImprovementsLabel">
        <property name="styleSheet">
         <string notr="true">QLabel{
 	color: white;
@@ -347,14 +354,14 @@
         <enum>QFrame::WinPanel</enum>
        </property>
        <property name="text">
-        <string>Sugerowana trasa:</string>
+        <string>Poprawa nr: </string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="RouteText">
+      <widget class="QLineEdit" name="ImprovementsText">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -363,6 +370,38 @@
         <string notr="true">QLineEdit{
 	background-color: rgb(135, 243, 96);
 }</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="verticalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QProgressBar" name="AlgorithmsProgressBar">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="value">
+        <number>0</number>
        </property>
       </widget>
      </item>

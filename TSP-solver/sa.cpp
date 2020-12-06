@@ -85,7 +85,7 @@ void SA::calculate_solution() {
                       }
                   } else {   //jesli nie poprawilismy, to zwieksz wskaznik stagnacji
                       stagnation++;
-                      if (stagnation < graph.get_order()) {
+                      if (stagnation > 10 * graph.get_order()) {
                           temperature = (double) (1e9) / 2;   //jesli stagnacja jest duza, to zwieksz temperature
 
                           unsigned f_inv = 0;  //wyznaczenie pierwszego miejsca inverta

@@ -33,7 +33,7 @@ double Strategy::random_path(std::vector<unsigned> &v, tsp::Graph<double, std::v
 }
 
 double Strategy::calculate_objective(std::vector<unsigned> &permutation, tsp::Graph<double, std::vector> &g) {
-    unsigned result = 0;
+    double result = 0;
 
     for (auto it = permutation.cbegin(); it + 1 != permutation.cend(); ++it) {
         result += g.get_distance(*it, *(it+1));

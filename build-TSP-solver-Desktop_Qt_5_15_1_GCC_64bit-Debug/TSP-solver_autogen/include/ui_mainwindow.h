@@ -16,6 +16,7 @@
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QProgressBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QSpacerItem>
@@ -53,10 +54,11 @@ public:
     QVBoxLayout *CostLayout;
     QLabel *CostLabel;
     QLineEdit *CostText;
-    QWidget *layoutWidget4;
-    QVBoxLayout *RouteLayout;
-    QLabel *RouteLabel;
-    QLineEdit *RouteText;
+    QSpacerItem *verticalSpacer;
+    QLabel *ImprovementsLabel;
+    QLineEdit *ImprovementsText;
+    QSpacerItem *verticalSpacer_2;
+    QProgressBar *AlgorithmsProgressBar;
     QLabel *MapOfPoland;
     QMenuBar *menubar;
     QStatusBar *statusbar;
@@ -102,6 +104,7 @@ public:
         TimeSlider = new QSlider(layoutWidget);
         TimeSlider->setObjectName(QString::fromUtf8("TimeSlider"));
         TimeSlider->setStyleSheet(QString::fromUtf8(""));
+        TimeSlider->setMinimum(3);
         TimeSlider->setOrientation(Qt::Horizontal);
 
         Sliders->addWidget(TimeSlider);
@@ -224,7 +227,7 @@ public:
 
         layoutWidget3 = new QWidget(centralwidget);
         layoutWidget3->setObjectName(QString::fromUtf8("layoutWidget3"));
-        layoutWidget3->setGeometry(QRect(1040, 100, 258, 95));
+        layoutWidget3->setGeometry(QRect(1040, 100, 258, 301));
         CostLayout = new QVBoxLayout(layoutWidget3);
         CostLayout->setObjectName(QString::fromUtf8("CostLayout"));
         CostLayout->setContentsMargins(0, 0, 0, 0);
@@ -239,11 +242,8 @@ public:
 
         CostText = new QLineEdit(layoutWidget3);
         CostText->setObjectName(QString::fromUtf8("CostText"));
-        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Expanding);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(CostText->sizePolicy().hasHeightForWidth());
-        CostText->setSizePolicy(sizePolicy2);
+        sizePolicy1.setHeightForWidth(CostText->sizePolicy().hasHeightForWidth());
+        CostText->setSizePolicy(sizePolicy1);
         CostText->setStyleSheet(QString::fromUtf8("QLineEdit{\n"
 "	background-color: rgb(135, 243, 96);\n"
 "}"));
@@ -251,30 +251,45 @@ public:
 
         CostLayout->addWidget(CostText);
 
-        layoutWidget4 = new QWidget(centralwidget);
-        layoutWidget4->setObjectName(QString::fromUtf8("layoutWidget4"));
-        layoutWidget4->setGeometry(QRect(1040, 240, 258, 217));
-        RouteLayout = new QVBoxLayout(layoutWidget4);
-        RouteLayout->setObjectName(QString::fromUtf8("RouteLayout"));
-        RouteLayout->setContentsMargins(0, 0, 0, 0);
-        RouteLabel = new QLabel(layoutWidget4);
-        RouteLabel->setObjectName(QString::fromUtf8("RouteLabel"));
-        RouteLabel->setStyleSheet(QString::fromUtf8("QLabel{\n"
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Preferred);
+
+        CostLayout->addItem(verticalSpacer);
+
+        ImprovementsLabel = new QLabel(layoutWidget3);
+        ImprovementsLabel->setObjectName(QString::fromUtf8("ImprovementsLabel"));
+        ImprovementsLabel->setStyleSheet(QString::fromUtf8("QLabel{\n"
 "	color: white;\n"
 "}"));
-        RouteLabel->setFrameShape(QFrame::WinPanel);
+        ImprovementsLabel->setFrameShape(QFrame::WinPanel);
 
-        RouteLayout->addWidget(RouteLabel);
+        CostLayout->addWidget(ImprovementsLabel);
 
-        RouteText = new QLineEdit(layoutWidget4);
-        RouteText->setObjectName(QString::fromUtf8("RouteText"));
-        sizePolicy2.setHeightForWidth(RouteText->sizePolicy().hasHeightForWidth());
-        RouteText->setSizePolicy(sizePolicy2);
-        RouteText->setStyleSheet(QString::fromUtf8("QLineEdit{\n"
+        ImprovementsText = new QLineEdit(layoutWidget3);
+        ImprovementsText->setObjectName(QString::fromUtf8("ImprovementsText"));
+        sizePolicy1.setHeightForWidth(ImprovementsText->sizePolicy().hasHeightForWidth());
+        ImprovementsText->setSizePolicy(sizePolicy1);
+        ImprovementsText->setStyleSheet(QString::fromUtf8("QLineEdit{\n"
 "	background-color: rgb(135, 243, 96);\n"
 "}"));
+        ImprovementsText->setAlignment(Qt::AlignCenter);
 
-        RouteLayout->addWidget(RouteText);
+        CostLayout->addWidget(ImprovementsText);
+
+        verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        CostLayout->addItem(verticalSpacer_2);
+
+        AlgorithmsProgressBar = new QProgressBar(layoutWidget3);
+        AlgorithmsProgressBar->setObjectName(QString::fromUtf8("AlgorithmsProgressBar"));
+        AlgorithmsProgressBar->setEnabled(true);
+        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(AlgorithmsProgressBar->sizePolicy().hasHeightForWidth());
+        AlgorithmsProgressBar->setSizePolicy(sizePolicy2);
+        AlgorithmsProgressBar->setValue(0);
+
+        CostLayout->addWidget(AlgorithmsProgressBar);
 
         MapOfPoland = new QLabel(centralwidget);
         MapOfPoland->setObjectName(QString::fromUtf8("MapOfPoland"));
@@ -314,7 +329,7 @@ public:
         ACOCheckBox->setText(QCoreApplication::translate("MainWindow", "Kolonia mr\303\263wek", nullptr));
         PSOCheckBox->setText(QCoreApplication::translate("MainWindow", "R\303\263j cz\304\205stek", nullptr));
         CostLabel->setText(QCoreApplication::translate("MainWindow", "Szacowany czas przejazdu:", nullptr));
-        RouteLabel->setText(QCoreApplication::translate("MainWindow", "Sugerowana trasa:", nullptr));
+        ImprovementsLabel->setText(QCoreApplication::translate("MainWindow", "Poprawa nr: ", nullptr));
         MapOfPoland->setText(QString());
     } // retranslateUi
 
