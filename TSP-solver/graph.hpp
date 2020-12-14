@@ -10,11 +10,11 @@
 #include <math.h>
 #include <cmath>
 
-#include "Point.hpp"
+#include "point.hpp"
 
 namespace tsp {
 
-    template<typename T, template<typename, typename = std::allocator<T>> class Container>
+    template<typename T, template<typename, typename = std::allocator <T>> class Container>
     class Graph {
     public:
         void add_vertex(T &&, T &&);
@@ -27,18 +27,23 @@ namespace tsp {
 
         unsigned get_order() const;
 
-        Container<std::pair<int, Point<T>>>& get_vertices_localization();
+        Container<std::pair < int, Point<T>>>&
+
+        get_vertices_localization();
 
         T get_distance(int, int) const;
 
     private:
         unsigned order_{0};
-        Container<std::pair<int, Point<T>>> vertices_localization;
-        Container<Container<std::pair<int, T>>> graph_representation;
+        Container<std::pair < int, Point<T>>>
+        vertices_localization;
+        Container<Container<std::pair < int, T>>>
+        graph_representation;
     };
 
-    template<typename T, template<typename, typename = std::allocator<T>> class Container>
-    Container<std::pair<int, Point<T>>>& Graph<T, Container>::get_vertices_localization() {
+    template<typename T, template<typename, typename = std::allocator <T>> class Container>
+    Container<std::pair < int, Point<T>>>&
+    Graph<T, Container>::get_vertices_localization() {
         return vertices_localization;
     }
 
@@ -51,7 +56,7 @@ namespace tsp {
     template<typename T, template<typename, typename> class Container>
     void Graph<T, Container>::add_vertex(T &&x, T &&y) {
         vertices_localization.push_back(std::make_pair(order_++, Point<T>(x, y)));
-        graph_representation.push_back(Container<std::pair<int, T>, std::allocator<T>>());
+        graph_representation.push_back(Container<std::pair<int, T>, std::allocator < T >> ());
 
         const auto added_vertex_id = order_ - 1;
         static auto vertex_id = 0;
@@ -112,7 +117,7 @@ namespace tsp {
                 if (iterator->first == index) {
                     iterator = distances.erase(iterator);
                 } else {
-                    if(iterator->first > index){
+                    if (iterator->first > index) {
                         --iterator->first;
                     }
                     ++iterator;
@@ -123,7 +128,7 @@ namespace tsp {
         vertices_localization.erase(vertices_localization.begin() + index);
         int i = 0;
         for (auto it = vertices_localization.begin(); i < order_; ++i, ++it) {
-            if(it->first > index){
+            if (it->first > index) {
                 it->first = i;
             }
         }
@@ -142,10 +147,9 @@ namespace tsp {
                 break;
             }
         }
-        if(removal_done_correctly){
+        if (removal_done_correctly) {
             std::cout << "Vertex removed" << std::endl;
-        }
-        else{
+        } else {
             std::cout << "Fail! No vertex removed" << std::endl;
         }
     }

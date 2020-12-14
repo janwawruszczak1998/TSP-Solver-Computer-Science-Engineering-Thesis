@@ -1,21 +1,20 @@
 #include "strategy.h"
 #include <thread>
 
-Strategy::Strategy(tsp::Graph<double, std::vector>& graph_, unsigned& result_, std::vector<unsigned>& route_)
-:
-graph{graph_},
-result___{result_},
-route___{route_},
-randoms{time(0)}
-{
+Strategy::Strategy(tsp::Graph<double, std::vector> &graph_, unsigned &result_, std::vector<unsigned> &route_)
+        :
+        graph{graph_},
+        result___{result_},
+        route___{route_},
+        randoms{} {
 }
 
-Strategy::~Strategy(){
+Strategy::~Strategy() {
 }
 
 bool Strategy::run_flag = false;
 
-std::thread& Strategy::get_algo_thread(){
+std::thread &Strategy::get_algo_thread() {
     return algo_thread;
 }
 
@@ -36,7 +35,7 @@ double Strategy::calculate_objective(std::vector<unsigned> &permutation, tsp::Gr
     double result = 0;
 
     for (auto it = permutation.cbegin(); it + 1 != permutation.cend(); ++it) {
-        result += g.get_distance(*it, *(it+1));
+        result += g.get_distance(*it, *(it + 1));
 
     }
 

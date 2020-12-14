@@ -25,9 +25,9 @@ public:
             Velocity(std::vector<unsigned> from_, std::vector<unsigned> to_);
 
             Velocity& operator=(const Velocity &);
-            Velocity& operator*=(const double);
+            Velocity& operator*=(double);
             Velocity& operator+=(const Velocity &);
-            Velocity operator*(const double);
+            Velocity operator*(double);
             Velocity operator+(const Velocity &);
 
             void add(unsigned, unsigned);

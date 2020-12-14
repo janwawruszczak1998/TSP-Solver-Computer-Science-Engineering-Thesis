@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>TSPSolver</class>
+ <widget class="QMainWindow" name="TSPSolver">
   <property name="enabled">
    <bool>true</bool>
   </property>
@@ -72,6 +72,9 @@
        </property>
        <property name="minimum">
         <number>3</number>
+       </property>
+       <property name="maximum">
+        <number>15</number>
        </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -311,6 +314,9 @@
      </item>
      <item>
       <widget class="QLineEdit" name="CostText">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
          <horstretch>0</horstretch>
@@ -325,10 +331,13 @@
        <property name="alignment">
         <set>Qt::AlignCenter</set>
        </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item>
-      <spacer name="verticalSpacer">
+      <spacer name="InfoSpacer">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>
@@ -360,6 +369,9 @@
      </item>
      <item>
       <widget class="QLineEdit" name="ImprovementsText">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
          <horstretch>0</horstretch>
@@ -374,10 +386,13 @@
        <property name="alignment">
         <set>Qt::AlignCenter</set>
        </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item>
-      <spacer name="verticalSpacer_2">
+      <spacer name="progressSpacer">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>

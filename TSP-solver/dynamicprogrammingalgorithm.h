@@ -3,10 +3,10 @@
 
 #include "strategy.h"
 
-class DP: public Strategy
-{
+class DP : public Strategy {
 public:
-    DP(tsp::Graph<double, std::vector> &, unsigned&, std::vector<unsigned>&);
+    DP(tsp::Graph<double, std::vector> &, unsigned &, std::vector<unsigned> &);
+
     ~DP();
 
     void calculate_solution() override;

@@ -4,21 +4,23 @@
 #include <vector>
 #include <thread>
 
-#include "Graph.hpp"
+#include "graph.hpp"
 #include "randoms.h"
 #include "mutex"
 
 
-class Strategy
-{
+class Strategy {
 public:
-    Strategy(tsp::Graph<double, std::vector> &, unsigned&, std::vector<unsigned>&);
+    Strategy(tsp::Graph<double, std::vector> &, unsigned &, std::vector<unsigned> &);
+
     virtual ~Strategy();
 
     virtual void calculate_solution() = 0;
 
-    std::thread& get_algo_thread();
+    std::thread &get_algo_thread();
+
     double random_path(std::vector<unsigned> &, tsp::Graph<double, std::vector> &);
+
     double calculate_objective(std::vector<unsigned> &permutation, tsp::Graph<double, std::vector> &);
 
     static bool run_flag;
@@ -28,8 +30,8 @@ protected:
     std::mutex result_mutex{};
 
     tsp::Graph<double, std::vector> &graph;
-    unsigned& result___;
-    std::vector<unsigned>& route___;
+    unsigned &result___;
+    std::vector<unsigned> &route___;
     re::Randoms randoms;
 
 };

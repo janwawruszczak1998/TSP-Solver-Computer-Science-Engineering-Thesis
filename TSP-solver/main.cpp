@@ -1,16 +1,15 @@
-#include "mainwindow.h"
-#include "Graph.hpp"
+#include "tspsolver.h"
+#include "graph.hpp"
 
 #include <QApplication>
 #include <QScreen>
 #include <iostream>
 
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
     tsp::Graph<double, std::vector> graph{};
-    MainWindow w(graph);
+    TSPSolver w(graph);
     w.setWindowTitle("TSP Solver");
     w.setWindowState(Qt::WindowMaximized);
     w.show();

@@ -92,16 +92,6 @@
 	"HEADERS" : 
 	[
 		[
-			"/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/Graph.hpp",
-			"MU",
-			"EWIEGA46WW/moc_Graph.cpp"
-		],
-		[
-			"/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/Point.hpp",
-			"MU",
-			"EWIEGA46WW/moc_Point.cpp"
-		],
-		[
 			"/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/aco.h",
 			"MU",
 			"EWIEGA46WW/moc_aco.cpp"
@@ -112,9 +102,14 @@
 			"EWIEGA46WW/moc_dynamicprogrammingalgorithm.cpp"
 		],
 		[
-			"/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/mainwindow.h",
+			"/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/graph.hpp",
 			"MU",
-			"EWIEGA46WW/moc_mainwindow.cpp"
+			"EWIEGA46WW/moc_graph.cpp"
+		],
+		[
+			"/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/point.hpp",
+			"MU",
+			"EWIEGA46WW/moc_point.cpp"
 		],
 		[
 			"/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/pso.h",
@@ -135,6 +130,11 @@
 			"/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/strategy.h",
 			"MU",
 			"EWIEGA46WW/moc_strategy.cpp"
+		],
+		[
+			"/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/tspsolver.h",
+			"MU",
+			"EWIEGA46WW/moc_tspsolver.cpp"
 		]
 	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
@@ -203,10 +203,6 @@
 			"MU"
 		],
 		[
-			"/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/mainwindow.cpp",
-			"MU"
-		],
-		[
 			"/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/pso.cpp",
 			"MU"
 		],
@@ -220,6 +216,10 @@
 		],
 		[
 			"/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/strategy.cpp",
+			"MU"
+		],
+		[
+			"/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/tspsolver.cpp",
 			"MU"
 		]
 	],

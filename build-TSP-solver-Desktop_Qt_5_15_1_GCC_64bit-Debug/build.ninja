@@ -83,9 +83,9 @@ build CMakeFiles/TSP-solver.dir/main.cpp.o: CXX_COMPILER__TSP-solver_Debug /home
   OBJECT_DIR = CMakeFiles/TSP-solver.dir
   OBJECT_FILE_DIR = CMakeFiles/TSP-solver.dir
 
-build CMakeFiles/TSP-solver.dir/mainwindow.cpp.o: CXX_COMPILER__TSP-solver_Debug /home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/mainwindow.cpp || cmake_object_order_depends_target_TSP-solver
+build CMakeFiles/TSP-solver.dir/tspsolver.cpp.o: CXX_COMPILER__TSP-solver_Debug /home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver/tspsolver.cpp || cmake_object_order_depends_target_TSP-solver
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB
-  DEP_FILE = CMakeFiles/TSP-solver.dir/mainwindow.cpp.o.d
+  DEP_FILE = CMakeFiles/TSP-solver.dir/tspsolver.cpp.o.d
   FLAGS = -pthread -g -fPIC -std=gnu++1z
   INCLUDES = -I. -I/home/jan/Desktop/TSP-Solver-Computer-Science-Engineering-Thesis/TSP-solver -ITSP-solver_autogen/include -isystem /home/jan/Qt/5.15.1/gcc_64/include -isystem /home/jan/Qt/5.15.1/gcc_64/include/QtWidgets -isystem /home/jan/Qt/5.15.1/gcc_64/include/QtGui -isystem /home/jan/Qt/5.15.1/gcc_64/include/QtCore -isystem /home/jan/Qt/5.15.1/gcc_64/./mkspecs/linux-g++
   OBJECT_DIR = CMakeFiles/TSP-solver.dir
@@ -147,7 +147,7 @@ build CMakeFiles/TSP-solver.dir/dynamicprogrammingalgorithm.cpp.o: CXX_COMPILER_
 #############################################
 # Link the executable TSP-solver
 
-build TSP-solver: CXX_EXECUTABLE_LINKER__TSP-solver_Debug CMakeFiles/TSP-solver.dir/TSP-solver_autogen/mocs_compilation.cpp.o CMakeFiles/TSP-solver.dir/main.cpp.o CMakeFiles/TSP-solver.dir/mainwindow.cpp.o CMakeFiles/TSP-solver.dir/strategy.cpp.o CMakeFiles/TSP-solver.dir/sa.cpp.o CMakeFiles/TSP-solver.dir/aco.cpp.o CMakeFiles/TSP-solver.dir/pso.cpp.o CMakeFiles/TSP-solver.dir/randoms.cpp.o CMakeFiles/TSP-solver.dir/dynamicprogrammingalgorithm.cpp.o | /home/jan/Qt/5.15.1/gcc_64/lib/libQt5Widgets.so.5.15.1 /home/jan/Qt/5.15.1/gcc_64/lib/libQt5Gui.so.5.15.1 /home/jan/Qt/5.15.1/gcc_64/lib/libQt5Core.so.5.15.1 || TSP-solver_autogen TSP-solver_autogen_timestamp_deps
+build TSP-solver: CXX_EXECUTABLE_LINKER__TSP-solver_Debug CMakeFiles/TSP-solver.dir/TSP-solver_autogen/mocs_compilation.cpp.o CMakeFiles/TSP-solver.dir/main.cpp.o CMakeFiles/TSP-solver.dir/tspsolver.cpp.o CMakeFiles/TSP-solver.dir/strategy.cpp.o CMakeFiles/TSP-solver.dir/sa.cpp.o CMakeFiles/TSP-solver.dir/aco.cpp.o CMakeFiles/TSP-solver.dir/pso.cpp.o CMakeFiles/TSP-solver.dir/randoms.cpp.o CMakeFiles/TSP-solver.dir/dynamicprogrammingalgorithm.cpp.o | /home/jan/Qt/5.15.1/gcc_64/lib/libQt5Widgets.so.5.15.1 /home/jan/Qt/5.15.1/gcc_64/lib/libQt5Gui.so.5.15.1 /home/jan/Qt/5.15.1/gcc_64/lib/libQt5Core.so.5.15.1 || TSP-solver_autogen TSP-solver_autogen_timestamp_deps
   FLAGS = -pthread -g
   LINK_LIBRARIES = -Wl,-rpath,/home/jan/Qt/5.15.1/gcc_64/lib  /home/jan/Qt/5.15.1/gcc_64/lib/libQt5Widgets.so.5.15.1  /home/jan/Qt/5.15.1/gcc_64/lib/libQt5Gui.so.5.15.1  /home/jan/Qt/5.15.1/gcc_64/lib/libQt5Core.so.5.15.1
   OBJECT_DIR = CMakeFiles/TSP-solver.dir

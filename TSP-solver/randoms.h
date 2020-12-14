@@ -9,25 +9,15 @@
 namespace re {
     class Randoms {
 
-    private:
-        long xpto;
-        std::random_device rand_device;
     public:
 
-        explicit Randoms(long);
+        Randoms() = default;
 
-        // Returns a random Gaussian number.
-        double Normal(double, double);
-
-        // Returns a uniform random number between 0 and 1.
         double uniform();
 
         int random_in_range(int, int);
-
-
-        float ran1(long *);
-
-        double gaussdev(long *);
+    private:
+        std::random_device rand_device;
 
     };
 } // namespace re;

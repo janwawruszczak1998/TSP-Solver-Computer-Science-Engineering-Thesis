@@ -32,8 +32,8 @@ find_package(Threads)
 if(ANDROID)
   add_library(TSP-solver SHARED
       main.cpp
-      mainwindow.cpp
-      mainwindow.h
+      tspsolver.cpp
+      tspsolver.h
       strategy.cpp
       strategy.h
       sa.cpp
@@ -47,14 +47,14 @@ if(ANDROID)
       dynamicprogrammingalgorithm.cpp
       dynamicprogrammingalgorithm.h
       mainwindow.ui
-      Graph.hpp
-      Point.hpp
+      graph.hpp
+      point.hpp
   )
 else()
   add_executable(TSP-solver
     main.cpp
-    mainwindow.cpp
-    mainwindow.h
+    tspsolver.cpp
+    tspsolver.h
     strategy.cpp
     strategy.h
     sa.cpp
@@ -68,8 +68,8 @@ else()
     dynamicprogrammingalgorithm.cpp
     dynamicprogrammingalgorithm.h
     mainwindow.ui
-    Graph.hpp
-    Point.hpp
+    graph.hpp
+    point.hpp
   )
 endif()
 

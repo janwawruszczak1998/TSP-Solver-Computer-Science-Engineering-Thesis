@@ -1,5 +1,5 @@
 /****************************************************************************
-** Meta object code from reading C++ file 'mainwindow.h'
+** Meta object code from reading C++ file 'tspsolver.h'
 **
 ** Created by: The Qt Meta Object Compiler version 67 (Qt 5.15.1)
 **
@@ -11,7 +11,7 @@
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
-#error "The header file 'mainwindow.h' doesn't include <QObject>."
+#error "The header file 'tspsolver.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
 #error "This file was generated using the moc from 5.15.1. It"
 #error "cannot be used with the include files from this version of Qt."
@@ -21,35 +21,35 @@
 QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
-struct qt_meta_stringdata_MainWindow_t {
+struct qt_meta_stringdata_TSPSolver_t {
     QByteArrayData data[8];
-    char stringdata0[124];
+    char stringdata0[123];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
-    qptrdiff(offsetof(qt_meta_stringdata_MainWindow_t, stringdata0) + ofs \
+    qptrdiff(offsetof(qt_meta_stringdata_TSPSolver_t, stringdata0) + ofs \
         - idx * sizeof(QByteArrayData)) \
     )
-static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_MainWindow = {
+static const qt_meta_stringdata_TSPSolver_t qt_meta_stringdata_TSPSolver = {
     {
-QT_MOC_LITERAL(0, 0, 10), // "MainWindow"
-QT_MOC_LITERAL(1, 11, 16), // "click_add_vertex"
-QT_MOC_LITERAL(2, 28, 0), // ""
-QT_MOC_LITERAL(3, 29, 19), // "click_remove_vertex"
-QT_MOC_LITERAL(4, 49, 17), // "click_clear_graph"
-QT_MOC_LITERAL(5, 67, 14), // "run_algorithms"
-QT_MOC_LITERAL(6, 82, 19), // "set_time_of_running"
-QT_MOC_LITERAL(7, 102, 21) // "set_number_of_threads"
+QT_MOC_LITERAL(0, 0, 9), // "TSPSolver"
+QT_MOC_LITERAL(1, 10, 16), // "click_add_vertex"
+QT_MOC_LITERAL(2, 27, 0), // ""
+QT_MOC_LITERAL(3, 28, 19), // "click_remove_vertex"
+QT_MOC_LITERAL(4, 48, 17), // "click_clear_graph"
+QT_MOC_LITERAL(5, 66, 14), // "run_algorithms"
+QT_MOC_LITERAL(6, 81, 19), // "set_time_of_running"
+QT_MOC_LITERAL(7, 101, 21) // "set_number_of_threads"
 
     },
-    "MainWindow\0click_add_vertex\0\0"
+    "TSPSolver\0click_add_vertex\0\0"
     "click_remove_vertex\0click_clear_graph\0"
     "run_algorithms\0set_time_of_running\0"
     "set_number_of_threads"
 };
 #undef QT_MOC_LITERAL
 
-static const uint qt_meta_data_MainWindow[] = {
+static const uint qt_meta_data_TSPSolver[] = {
 
  // content:
        8,       // revision
@@ -81,10 +81,10 @@ static const uint qt_meta_data_MainWindow[] = {
        0        // eod
 };
 
-void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void TSPSolver::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        auto *_t = static_cast<MainWindow *>(_o);
+        auto *_t = static_cast<TSPSolver *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->click_add_vertex(); break;
@@ -99,30 +99,30 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
     Q_UNUSED(_a);
 }
 
-QT_INIT_METAOBJECT const QMetaObject MainWindow::staticMetaObject = { {
+QT_INIT_METAOBJECT const QMetaObject TSPSolver::staticMetaObject = { {
     QMetaObject::SuperData::link<QMainWindow::staticMetaObject>(),
-    qt_meta_stringdata_MainWindow.data,
-    qt_meta_data_MainWindow,
+    qt_meta_stringdata_TSPSolver.data,
+    qt_meta_data_TSPSolver,
     qt_static_metacall,
     nullptr,
     nullptr
 } };
 
 
-const QMetaObject *MainWindow::metaObject() const
+const QMetaObject *TSPSolver::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
-void *MainWindow::qt_metacast(const char *_clname)
+void *TSPSolver::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_MainWindow.stringdata0))
+    if (!strcmp(_clname, qt_meta_stringdata_TSPSolver.stringdata0))
         return static_cast<void*>(this);
     return QMainWindow::qt_metacast(_clname);
 }
 
-int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int TSPSolver::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QMainWindow::qt_metacall(_c, _id, _a);
     if (_id < 0)

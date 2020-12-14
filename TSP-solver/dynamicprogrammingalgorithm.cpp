@@ -3,13 +3,12 @@
 #include <thread>
 #include <algorithm>
 
-DP::DP(tsp::Graph<double, std::vector>& graph_, unsigned& result_, std::vector<unsigned>& route_)
-: Strategy(graph_, result_, route_)
-{
+DP::DP(tsp::Graph<double, std::vector> &graph_, unsigned &result_, std::vector<unsigned> &route_)
+        : Strategy(graph_, result_, route_) {
     calculate_solution();
 }
 
-DP::~DP(){
+DP::~DP() {
 
 }
 
@@ -46,7 +45,7 @@ void DP::calculate_solution() {
     unsigned result = 1e9;
     for (unsigned v = 0; v < n; ++v) {
         unsigned act = dp[(1 << n) - 1][v] +
-                  graph.get_distance(v, 0); //koszt "powrotu" z wierzchołka v do wierzchołka 0
+                       graph.get_distance(v, 0); //koszt "powrotu" z wierzchołka v do wierzchołka 0
         if (result > act) result = act;
     }
 

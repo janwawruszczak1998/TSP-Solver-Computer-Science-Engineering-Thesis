@@ -26,7 +26,7 @@
 
 QT_BEGIN_NAMESPACE
 
-class Ui_MainWindow
+class Ui_TSPSolver
 {
 public:
     QWidget *centralwidget;
@@ -54,31 +54,31 @@ public:
     QVBoxLayout *CostLayout;
     QLabel *CostLabel;
     QLineEdit *CostText;
-    QSpacerItem *verticalSpacer;
+    QSpacerItem *InfoSpacer;
     QLabel *ImprovementsLabel;
     QLineEdit *ImprovementsText;
-    QSpacerItem *verticalSpacer_2;
+    QSpacerItem *progressSpacer;
     QProgressBar *AlgorithmsProgressBar;
     QLabel *MapOfPoland;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
-    void setupUi(QMainWindow *MainWindow)
+    void setupUi(QMainWindow *TSPSolver)
     {
-        if (MainWindow->objectName().isEmpty())
-            MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->setEnabled(true);
-        MainWindow->resize(1408, 684);
+        if (TSPSolver->objectName().isEmpty())
+            TSPSolver->setObjectName(QString::fromUtf8("TSPSolver"));
+        TSPSolver->setEnabled(true);
+        TSPSolver->resize(1408, 684);
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
-        MainWindow->setSizePolicy(sizePolicy);
-        MainWindow->setMouseTracking(false);
-        MainWindow->setStyleSheet(QString::fromUtf8("QMainWindow{\n"
+        sizePolicy.setHeightForWidth(TSPSolver->sizePolicy().hasHeightForWidth());
+        TSPSolver->setSizePolicy(sizePolicy);
+        TSPSolver->setMouseTracking(false);
+        TSPSolver->setStyleSheet(QString::fromUtf8("QMainWindow{\n"
 "	background-color: rgb(146, 183, 108);\n"
 "}"));
-        centralwidget = new QWidget(MainWindow);
+        centralwidget = new QWidget(TSPSolver);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         layoutWidget = new QWidget(centralwidget);
         layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
@@ -105,6 +105,7 @@ public:
         TimeSlider->setObjectName(QString::fromUtf8("TimeSlider"));
         TimeSlider->setStyleSheet(QString::fromUtf8(""));
         TimeSlider->setMinimum(3);
+        TimeSlider->setMaximum(15);
         TimeSlider->setOrientation(Qt::Horizontal);
 
         Sliders->addWidget(TimeSlider);
@@ -242,18 +243,20 @@ public:
 
         CostText = new QLineEdit(layoutWidget3);
         CostText->setObjectName(QString::fromUtf8("CostText"));
+        CostText->setEnabled(true);
         sizePolicy1.setHeightForWidth(CostText->sizePolicy().hasHeightForWidth());
         CostText->setSizePolicy(sizePolicy1);
         CostText->setStyleSheet(QString::fromUtf8("QLineEdit{\n"
 "	background-color: rgb(135, 243, 96);\n"
 "}"));
         CostText->setAlignment(Qt::AlignCenter);
+        CostText->setReadOnly(true);
 
         CostLayout->addWidget(CostText);
 
-        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Preferred);
+        InfoSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Preferred);
 
-        CostLayout->addItem(verticalSpacer);
+        CostLayout->addItem(InfoSpacer);
 
         ImprovementsLabel = new QLabel(layoutWidget3);
         ImprovementsLabel->setObjectName(QString::fromUtf8("ImprovementsLabel"));
@@ -266,18 +269,20 @@ public:
 
         ImprovementsText = new QLineEdit(layoutWidget3);
         ImprovementsText->setObjectName(QString::fromUtf8("ImprovementsText"));
+        ImprovementsText->setEnabled(true);
         sizePolicy1.setHeightForWidth(ImprovementsText->sizePolicy().hasHeightForWidth());
         ImprovementsText->setSizePolicy(sizePolicy1);
         ImprovementsText->setStyleSheet(QString::fromUtf8("QLineEdit{\n"
 "	background-color: rgb(135, 243, 96);\n"
 "}"));
         ImprovementsText->setAlignment(Qt::AlignCenter);
+        ImprovementsText->setReadOnly(true);
 
         CostLayout->addWidget(ImprovementsText);
 
-        verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        progressSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-        CostLayout->addItem(verticalSpacer_2);
+        CostLayout->addItem(progressSpacer);
 
         AlgorithmsProgressBar = new QProgressBar(layoutWidget3);
         AlgorithmsProgressBar->setObjectName(QString::fromUtf8("AlgorithmsProgressBar"));
@@ -302,41 +307,41 @@ public:
         MapOfPoland->setFrameShape(QFrame::NoFrame);
         MapOfPoland->setPixmap(QPixmap(QString::fromUtf8("../map_of_poland.png")));
         MapOfPoland->setScaledContents(true);
-        MainWindow->setCentralWidget(centralwidget);
-        menubar = new QMenuBar(MainWindow);
+        TSPSolver->setCentralWidget(centralwidget);
+        menubar = new QMenuBar(TSPSolver);
         menubar->setObjectName(QString::fromUtf8("menubar"));
         menubar->setGeometry(QRect(0, 0, 1408, 22));
-        MainWindow->setMenuBar(menubar);
-        statusbar = new QStatusBar(MainWindow);
+        TSPSolver->setMenuBar(menubar);
+        statusbar = new QStatusBar(TSPSolver);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
-        MainWindow->setStatusBar(statusbar);
+        TSPSolver->setStatusBar(statusbar);
 
-        retranslateUi(MainWindow);
+        retranslateUi(TSPSolver);
 
-        QMetaObject::connectSlotsByName(MainWindow);
+        QMetaObject::connectSlotsByName(TSPSolver);
     } // setupUi
 
-    void retranslateUi(QMainWindow *MainWindow)
+    void retranslateUi(QMainWindow *TSPSolver)
     {
-        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
-        TimeLabel->setText(QCoreApplication::translate("MainWindow", "Czas oczekiwania:", nullptr));
-        ThreadsLabel->setText(QCoreApplication::translate("MainWindow", "Liczba w\304\205tk\303\263w", nullptr));
-        RunButton->setText(QCoreApplication::translate("MainWindow", "RUN!", nullptr));
-        AddVertexButton->setText(QCoreApplication::translate("MainWindow", "Dodaj punkt na mapie", nullptr));
-        RemoveVertexButton->setText(QCoreApplication::translate("MainWindow", "Usu\305\204 punkt z mapy", nullptr));
-        ClearVerticlesButton->setText(QCoreApplication::translate("MainWindow", "Wyczy\305\233\304\207 map\304\231", nullptr));
-        SACheckBox->setText(QCoreApplication::translate("MainWindow", "Symulowane wy\305\274arzanie", nullptr));
-        ACOCheckBox->setText(QCoreApplication::translate("MainWindow", "Kolonia mr\303\263wek", nullptr));
-        PSOCheckBox->setText(QCoreApplication::translate("MainWindow", "R\303\263j cz\304\205stek", nullptr));
-        CostLabel->setText(QCoreApplication::translate("MainWindow", "Szacowany czas przejazdu:", nullptr));
-        ImprovementsLabel->setText(QCoreApplication::translate("MainWindow", "Poprawa nr: ", nullptr));
+        TSPSolver->setWindowTitle(QCoreApplication::translate("TSPSolver", "MainWindow", nullptr));
+        TimeLabel->setText(QCoreApplication::translate("TSPSolver", "Czas oczekiwania:", nullptr));
+        ThreadsLabel->setText(QCoreApplication::translate("TSPSolver", "Liczba w\304\205tk\303\263w", nullptr));
+        RunButton->setText(QCoreApplication::translate("TSPSolver", "RUN!", nullptr));
+        AddVertexButton->setText(QCoreApplication::translate("TSPSolver", "Dodaj punkt na mapie", nullptr));
+        RemoveVertexButton->setText(QCoreApplication::translate("TSPSolver", "Usu\305\204 punkt z mapy", nullptr));
+        ClearVerticlesButton->setText(QCoreApplication::translate("TSPSolver", "Wyczy\305\233\304\207 map\304\231", nullptr));
+        SACheckBox->setText(QCoreApplication::translate("TSPSolver", "Symulowane wy\305\274arzanie", nullptr));
+        ACOCheckBox->setText(QCoreApplication::translate("TSPSolver", "Kolonia mr\303\263wek", nullptr));
+        PSOCheckBox->setText(QCoreApplication::translate("TSPSolver", "R\303\263j cz\304\205stek", nullptr));
+        CostLabel->setText(QCoreApplication::translate("TSPSolver", "Szacowany czas przejazdu:", nullptr));
+        ImprovementsLabel->setText(QCoreApplication::translate("TSPSolver", "Poprawa nr: ", nullptr));
         MapOfPoland->setText(QString());
     } // retranslateUi
 
 };
 
 namespace Ui {
-    class MainWindow: public Ui_MainWindow {};
+    class TSPSolver: public Ui_TSPSolver {};
 } // namespace Ui
 
 QT_END_NAMESPACE
